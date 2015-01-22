@@ -57,4 +57,4 @@ View the project roadmap [here](https://github.com/JollyPhantom/Trumpet/issues)
 
 ## Contributing
 
-See [CONTRIBUTING.md](https://github.com/TroutZen/Trumpet/blob/master/CONTRIBUTING.md) for contribution guidelines.
+See [CONTRIBUTING.md](https://github.com/JollyPhantom/Trumpet/blob/master/CONTRIBUTING.md) for contribution guidelines.

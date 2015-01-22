@@ -16,29 +16,33 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
  
-## Heading ##
+## Trumpet ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
 
-## Sub-Heading ##
+## Indoor-Positioning-System designed for Retails##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > Trumpet makes it easy for retailers to create maps of their retail spaces. Consumers can simply visit Trumpet to search for where specific items are, and navigate around the space using a mobile-friendly interface. Retailers can then use these datas to optimize items' location.
 
 ## Problem ##
-  > Describe the problem your product solves.
+  > For retailers, it is difficult to manage a large retail space efficiently. <br>
+  > For consumers, it is confusing somethings to navigate in these spaces.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  > No additional hardware required <br>
+  > Intuitive, mobile-friendly interface <br>
+  > Fast and accurate search result.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  > "Jolly Phantom"
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > Retailers - Sign up and create map.
+  > Consumers - Visit retail map and start trumpeting.
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > "I had to use the bathroom badly and Trumpet help me find it in no time."
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > Visit URL

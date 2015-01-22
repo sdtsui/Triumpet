@@ -51,8 +51,8 @@ bower install
 View the project roadmap [here](https://github.com/JollyPhantom/Trumpet/issues)
 
 ## Team
-- [Jackie Chan](https://github.com/TroutZen)
-- [Devin Otway](https://github.com/chikeichan)
+- [Jackie Chan](https://github.com/chikeichan)
+- [Devin Otway](https://github.com/TroutZen)
 - [Daniel Tsui](https://github.com/sdtsui)
 
 ## Contributing

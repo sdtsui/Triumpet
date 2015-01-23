@@ -1,6 +1,6 @@
-# Trumpet
+# Triumpet
 
-> Trumpet is an indoor positioning application that allows you to find physical objects in your immediate proximity. Search for objects that you are interested in finding nearby and Trumpet will navigate you to it's location. You will no longer have to ask what aisle the mayonnaise is on!
+> Triumpet is an indoor positioning application that allows you to find physical objects in your immediate proximity. Search for objects that you are interested in finding nearby and Triumpet will navigate you to it's location. You will no longer have to ask what aisle the mayonnaise is on!
 
 ## Team
 
@@ -48,7 +48,7 @@ bower install
 
 ### Roadmap
 
-View the project roadmap [here](https://github.com/JollyPhantom/Trumpet/issues)
+View the project roadmap [here](https://github.com/JollyPhantom/Triumpet/issues)
 
 ## Team
 - [Jackie Chan](https://github.com/chikeichan)
@@ -57,4 +57,4 @@ View the project roadmap [here](https://github.com/JollyPhantom/Trumpet/issues)
 
 ## Contributing
 
-See [CONTRIBUTING.md](https://github.com/JollyPhantom/Trumpet/blob/master/CONTRIBUTING.md) for contribution guidelines.
+See [CONTRIBUTING.md](https://github.com/JollyPhantom/Triumpet/blob/master/CONTRIBUTING.md) for contribution guidelines.

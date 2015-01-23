@@ -5,6 +5,8 @@ module.exports = function(app, express) {
   //Mounting middleware to app
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());
+
+  //Serve static assets
   app.use(express.static(__dirname + '/../../client'));
 
   /*

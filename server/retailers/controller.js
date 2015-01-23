@@ -16,7 +16,6 @@ controller.create = function(req,res,next){
   findOne({username:username})
     .then(function(retailer){
       if(retailer){
-        //Error if username already exist
         next(new Error('Retailer already exist'));
       } else {
         return create(req.body);
@@ -28,21 +27,19 @@ controller.create = function(req,res,next){
       res.json({token: token});
     })
     .fail(function(error){
-      //Error handling
       next(error);
-    })
+    });
 };
 
 //READ method to fetch all retailers
 controller.read = function(req,res,next){
   Retailer.find({},function(err,retailers){
     if(err){
-      //Error handling
       res.sendStatus(403);
     } else {
       res.send(retailers);
     }
-  })
+  });
 };
 
 //UPDATE method to update attributes for one retailer
@@ -61,9 +58,8 @@ controller.update = function(req,res,next){
       }
     })
     .fail(function(error){
-      //Error handling
       next(error);
-    })
+    });
 };
 
 //DELETE method to remove retailer
@@ -71,19 +67,15 @@ controller.delete = function(req,res,next){
   findOne({_id:req.params.id})
     .then(function(retailer){
       if(!retailer){
-        //Error handling
         next(new Error('Retailer does not exist'));
       } else {
-        //Remove retailer
         retailer.remove();
         res.sendStatus(300);
       }
     })
     .fail(function(error){
-      //Error handling
       next(error);
-    })
+    });
 };
-
 
 module.exports = controller;

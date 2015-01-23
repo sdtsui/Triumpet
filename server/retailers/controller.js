@@ -11,7 +11,6 @@ var controller = {};
 
 controller.create = function(req,res,next){
   var username = req.body.username;
-  console.log(req.body);
 
   findOne({username:username})
     .then(function(retailer){
@@ -39,10 +38,35 @@ controller.read = function(req,res,next){
   })
 };
 controller.update = function(req,res,next){
-
+  findOne({_id:req.params.id})
+    .then(function(retailer){
+      if(!retailer){
+        next(new Error('Retailer does not exist'));
+      } else {
+        for (var attr in req.body){
+          retailer[attr] = req.body[attr];
+        }
+        retailer.save();
+        res.sendStatus(300);
+      }
+    })
+    .fail(function(error){
+      next(error);
+    })
 };
 controller.delete = function(req,res,next){
-
+  findOne({_id:req.params.id})
+    .then(function(retailer){
+      if(!retailer){
+        next(new Error('Retailer does not exist'));
+      } else {
+        retailer.remove();
+        res.sendStatus(300);
+      }
+    })
+    .fail(function(error){
+      next(error);
+    })
 };
 
 

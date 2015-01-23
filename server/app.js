@@ -7,7 +7,7 @@ var app = express();
 mongoose.connect('mongodb://localhost/triumpet');
 
 //configure server with all middleware and routing
-require('./config/middleware.js')(app, express);
+require('./config/router.js')(app, express);
 
 //export our app required by server.js
 module.exports = app;

@@ -3,11 +3,23 @@ var bcrypt            = require('bcrypt-nodejs');
 var Q                = require('q');
 var SALT_WORK_FACTOR = 10;
 
+
+/*
+Schema for coordinates of floorplan
+e.g.: a rectangular floorplan with have 4 coordinates
+e.g.: a hexagon floorplan with have 6 coordinates
+*/
 var Coordinates = new mongoose.Schema({
   x: Number,
   y: Number
 });
 
+/*
+Schema for shelves' attributes
+x and y reference coordinate of top-left corner
+these four attributes are essential in order to render
+them using D3.
+*/
 var Shelves = new mongoose.Schema({
   x: Number,
   y: Number,
@@ -15,6 +27,10 @@ var Shelves = new mongoose.Schema({
   height: Number
 });
 
+/*
+Schema for Retailer.
+Contains login info, general info, and map info.
+*/
 var RetailerSchema = new mongoose.Schema({
   username: {
     type      : String,
@@ -22,12 +38,10 @@ var RetailerSchema = new mongoose.Schema({
     unique    : true,
     lowercase : true
   },
-
   password: {
     type      : String,
     required  : true
   },
-
   description : String,
   phoneNumber : String,
   Address     : String,
@@ -35,6 +49,7 @@ var RetailerSchema = new mongoose.Schema({
   shelves     : [Shelves]
 });
 
+//Hash password with before saving
 RetailerSchema.pre('save',function(next){
   var retailer = this;
 
@@ -63,4 +78,5 @@ RetailerSchema.pre('save',function(next){
   });
 });
 
+//Export retailer model to controller
 module.exports = mongoose.model('retailers',RetailerSchema);

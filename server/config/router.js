@@ -8,10 +8,10 @@ module.exports = function(app, express) {
   app.use(express.static(__dirname + '/../../client'));
 
   //routing CRUD for retailers API to controllers
+  app.put('/api/retailers/:id',retailers.update);
+  app.delete('/api/retailers/:id',retailers.delete);
   app.post('/api/retailers',retailers.create);
   app.get('/api/retailers',retailers.read);
-  app.put('api/retailers/:id',retailers.update);
-  app.delete('api/retailers/:id',retailers.delete);
 }
 
 

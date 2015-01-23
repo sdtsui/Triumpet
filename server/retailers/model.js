@@ -1,20 +1,14 @@
-var mongoose         = require('mongoose');
+var mongoose          = require('mongoose');
 var bcrypt            = require('bcrypt-nodejs');
-var Q                = require('q');
-var SALT_WORK_FACTOR = 10;
+var Q                 = require('q');
+var CoordinatesSchema = require('./coordinates/model.js');
+var ShelvesSchema     = require('./shelves/model.js');
+var SALT_WORK_FACTOR  = 10;
 
-var Coordinates = new mongoose.Schema({
-  x: Number,
-  y: Number
-});
-
-var Shelves = new mongoose.Schema({
-  x: Number,
-  y: Number,
-  width: Number,
-  height: Number
-});
-
+/*
+Schema for Retailer.
+Contains login info, general info, and map info.
+*/
 var RetailerSchema = new mongoose.Schema({
   username: {
     type      : String,
@@ -22,19 +16,18 @@ var RetailerSchema = new mongoose.Schema({
     unique    : true,
     lowercase : true
   },
-
   password: {
     type      : String,
     required  : true
   },
-
   description : String,
   phoneNumber : String,
-  Address     : String,
-  floorPlan   : [Coordinates],
-  shelves     : [Shelves]
+  address     : String,
+  floorPlan   : [CoordinatesSchema],    //A floorPlan consists of an array of Coordinates
+  shelves     : [ShelvesSchema]         //Selves consists of an array of Shelves
 });
 
+//Hash password with before saving
 RetailerSchema.pre('save',function(next){
   var retailer = this;
 
@@ -63,4 +56,5 @@ RetailerSchema.pre('save',function(next){
   });
 });
 
+//Export retailer model to controller
 module.exports = mongoose.model('retailers',RetailerSchema);

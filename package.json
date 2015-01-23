@@ -1,0 +1,25 @@
+{
+  "name": "Triumpet",
+  "version": "0.0.0",
+  "description": "Indoor Mapping for Retail",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/JollyPhantom/Triumpet"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JollyPhantom/Triumpet/issues"
+  },
+  "homepage": "https://github.com/JollyPhantom/Triumpet",
+  "dependencies": {
+    "express": "~4.11.1",
+    "body-parser": "~1.10.2",
+    "mongoose": "~3.8.21"
+  }
+}

@@ -16,6 +16,9 @@
   "bugs": {
     "url": "https://github.com/JollyPhantom/Triumpet/issues"
   },
+  "engines" : {
+    "node" : ">=0.10.3 <0.12"
+  },
   "homepage": "https://github.com/JollyPhantom/Triumpet",
   "dependencies": {
     "express": "~4.11.1",

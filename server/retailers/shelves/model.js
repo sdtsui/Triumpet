@@ -1,5 +1,5 @@
 var mongoose          = require('mongoose');
-var CoordinatesSchema = require('./coordinates/model.js');
+var CoordinatesSchema = require('../coordinates/model.js');
 
 /*
 Schema for shelves' attributes

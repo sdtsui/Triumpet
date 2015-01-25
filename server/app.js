@@ -8,7 +8,9 @@ var app = express();
 var dbPath         = process.env.dbPath || 'mongodb://localhost/triumpet';
 
 //connect to mongo
-mongoose.connect(dbPath);
+mongoose.connect(dbPath, function(err, res){
+  if(err){console.log('error :', err)}
+});
 
 //configure server with all middleware and routing
 require('./config/router.js')(app, express);

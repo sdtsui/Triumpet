@@ -9,7 +9,7 @@ var SALT_WORK_FACTOR  = 10;
 Schema for Retailer.
 Contains login info, general info, and map info.
 */
-var RetailerSchema = new mongoose.Schema({
+var RetailersSchema = new mongoose.Schema({
   username: {
     type      : String,
     required  : true,
@@ -20,6 +20,7 @@ var RetailerSchema = new mongoose.Schema({
     type      : String,
     required  : true
   },
+  name        : String,
   description : String,
   phoneNumber : String,
   address     : String,
@@ -28,7 +29,7 @@ var RetailerSchema = new mongoose.Schema({
 });
 
 //Hash password with before saving
-RetailerSchema.pre('save',function(next){
+RetailersSchema.pre('save',function(next){
   var retailer = this;
 
   //Only hash password if it has been modified or new
@@ -57,4 +58,4 @@ RetailerSchema.pre('save',function(next){
 });
 
 //Export retailer model to controller
-module.exports = mongoose.model('retailers',RetailerSchema);
+module.exports = mongoose.model('retailers',RetailersSchema);

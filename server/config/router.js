@@ -8,6 +8,7 @@ module.exports = function(app, express) {
   app.use(bodyParser.json());
   app.engine('html',ejs.renderFile);
   app.set('view engine', 'html');
+
   //Serve static assets
   app.use(express.static(__dirname + '/../../client'));
 
@@ -20,14 +21,14 @@ module.exports = function(app, express) {
   */
 
   // Retailers API
-  app.put('/api/retailers/:username',retailers.update);
-  app.delete('/api/retailers/:username',retailers.delete);
   app.post('/api/retailers',retailers.create);
   app.get('/api/retailers',retailers.read);
+  app.put('/api/retailers/:username',retailers.update);
+  app.delete('/api/retailers/:username',retailers.delete);
 
   // Items API
-  app.get('/api/items/:retailer', items.read);
   app.post('/api/items/:retailer', items.create);
+  app.get('/api/items/:retailer', items.read);
 
 
   //More API...

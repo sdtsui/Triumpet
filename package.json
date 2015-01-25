@@ -24,14 +24,14 @@
     "jwt-simple": "~0.2.0",
     "q": "~1.1.2",
     "bcrypt-nodejs": "0.0.3",
-    "ejs": "~2.2.3",
-    "mocha": "*",
-    "should": ">= 0.0.1",
-    "supertest": "0.3.x",
-    "chai": "*"
+    "ejs": "~2.2.3"
   },
   "devDependencies": {
     "gulp-protractor": "0.0.12",
-    "protractor": "^1.6.1"
+    "protractor": "^1.6.1",
+    "supertest": "0.3.x",
+    "mocha": "*",
+    "should": ">= 0.0.1",
+    "chai": "*"
   }
 }

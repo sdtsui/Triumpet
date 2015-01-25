@@ -1,15 +1,22 @@
 //Main app factories
 var app = angular.module('trumpet', []);
 
-app.controller('MainCtrl', function($scope){
 
+// configures routes for the app
+app.config(function($routeProvider){
+  $routeProvider.when('/', {
+    templateUrl: "",
+    controller: ""
+  });
 });
 
-app.controller('ProfileCtrl', function(){
 
-});
+// app.config(function($routeProvider){
+//   $routeProvider.when("/",
+//     {
+//       templateUrl: "app.html",
+//       controller: "AppCtrl"
+//     }
+//   );
+// });
 
-
-app.controller('searchCtrl', function(){
-
-});

@@ -4,6 +4,7 @@ var CoordinatesSchema = require('../retailers/coordinates/model.js');
 Schema for items
  - Name
  - Categories ID
+ - Vendor ID
  - [Coordinates]
 */
 var ItemsSchema = new mongoose.Schema({

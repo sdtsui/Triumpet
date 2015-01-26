@@ -35,3 +35,21 @@
 --- Delete Request ---
 > Expect item's name as a URL params (/api/retailers/:username/:itemName)
 > Remove a specific item
+
+
+## /api/users ##
+
+--- Post Request (/api/users/signup) ---
+> Expect username, password, firstName, lastName, email
+
+--- Post Request (/api/users/signin) ---
+> Expect username, password
+> return token
+
+--- Put Request ---
+> Expect item's name as a URL params (/api/retailers/:username/:itemName)
+> Update existing data for a specific item
+
+--- Delete Request ---
+> Expect item's name as a URL params (/api/retailers/:username/:itemName)
+> Remove a specific item

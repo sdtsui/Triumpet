@@ -1,7 +1,10 @@
 var ejs            = require('ejs');
 var bodyParser     = require('body-parser');
-var retailers      = require('../retailers/controller.js'); //Custom controllers for routes
-var items          = require('../items/controller.js'); //Custom controllers for routes
+//Custom controllers for routes
+var retailers      = require('../retailers/controller.js');
+var items          = require('../items/controller.js');
+var users          = require('../users/controller.js');
+
 module.exports = function(app, express) {
   //Mounting middleware to app
   app.use(bodyParser.urlencoded({extended: true}));
@@ -31,6 +34,12 @@ module.exports = function(app, express) {
   app.get('/api/items/:retailer', items.read);
   app.put('/api/items/:retailer/:item', items.update);
   app.delete('/api/items/:retailer/:item',items.delete);
+
+  // Users API
+  app.post('/api/users/signup',users.create);
+  app.post('/api/users/signin',users.signin);
+  app.put('/api/users/:username',users.update);
+  app.delete('/api/users/:username',users.delete);
 
   //More API...
 };

@@ -5,5 +5,5 @@ exports.config = {
   './Server/**/*.js',
   './e2e/**/*.js'
   ],
-  baseUrl: 'https://localhost:????'
+  baseUrl: 'https://localhost:8080'
 };

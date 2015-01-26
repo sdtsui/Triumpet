@@ -3,13 +3,19 @@ var CoordinatesSchema = require('../retailers/coordinates/model.js');
 /*
 Schema for items
  - Name
- - Categories ID
+ - Category
  - Vendor ID
  - [Coordinates]
 */
 var ItemsSchema = new mongoose.Schema({
-  name: String,
-  categories_id: String,
+  name: {
+    type      : String,
+    required  : true
+  },
+  category: {
+    type      : String,
+    required  : true
+  },
   retailer_id: String,
   coordinates: [CoordinatesSchema]
 });

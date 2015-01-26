@@ -14,8 +14,15 @@ app.config(function($routeProvider){
 
 
 // this directive will be for rendering the svg map using d3 and updating it as needed
-app.directive('mapViz', function(){
+app.directive('tpMapViz', function(){
+  return {
+    restrict: 'AE',
+    
 
+  },
+  link: function(scope, element, attrs) {
+
+  }
 
 
 

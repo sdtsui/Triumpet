@@ -44,7 +44,7 @@ controller.read = function(req,res,next){
 
 //UPDATE method to update attributes for one retailer
 controller.update = function(req,res,next){
-  findOne({_id:req.params.id})
+  findOne({username:req.params.username})
     .then(function(retailer){
       if(!retailer){
         next(new Error('Retailer does not exist'));
@@ -64,7 +64,7 @@ controller.update = function(req,res,next){
 
 //DELETE method to remove retailer
 controller.delete = function(req,res,next){
-  findOne({_id:req.params.id})
+  findOne({username:req.params.username})
     .then(function(retailer){
       if(!retailer){
         next(new Error('Retailer does not exist'));

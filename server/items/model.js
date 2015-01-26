@@ -8,6 +8,7 @@ Schema for items
  - [Coordinates]
 */
 var ItemsSchema = new mongoose.Schema({
+  item_id: mongoose.Schema.ObjectId,
   name: {
     type      : String,
     required  : true

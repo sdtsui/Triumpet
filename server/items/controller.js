@@ -24,6 +24,7 @@ controller.create = function(req,res,next){
           .then(function(item){
             if(!item){
               req.body.retailer_id = retailer._id;
+              console.log(req.body);
               createItem(req.body);
             } else {
               next (new Error('Item already exit'))
@@ -44,6 +45,53 @@ controller.read = function(req,res,next){
         findItem({retailer_id: retailer._id})
           .then(function(item){
             res.send(item);
+          });
+      }
+    });
+}
+
+//UPDATE method to update one item from one retailer
+controller.update = function(req,res,next){
+  var username = req.params.retailer;
+  var itemName = req.params.item;
+  findOneRetailer({username:username})
+    .then(function(retailer){
+      if(!retailer){
+        next(new Error('Retailer doesn\'t exist'));
+      } else {
+        findOneItem({retailer_id: retailer._id, name: itemName})
+          .then(function(item){
+            if(!item){
+              next (new Error('Item doesn\'t exit'))
+            } else {
+              for(var key in req.body){
+                item[key] = req.body[key];
+              }
+              item.save();
+              res.sendStatus(300);
+            }
+          });
+      }
+    });
+}
+
+//DELETE method to remove one item from a retailer
+controller.delete = function(req,res,next){
+  var username = req.params.retailer;
+  var itemName = req.params.item;
+  findOneRetailer({username:username})
+    .then(function(retailer){
+      if(!retailer){
+        next(new Error('Retailer doesn\'t exist'));
+      } else {
+        findOneItem({retailer_id: retailer._id, name: itemName})
+          .then(function(item){
+            if(!item){
+              next (new Error('Item doesn\'t exit'))
+            } else {
+              item.remove();
+              res.sendStatus(300);
+            }
           });
       }
     });

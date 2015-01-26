@@ -29,7 +29,8 @@ module.exports = function(app, express) {
   // Items API
   app.post('/api/items/:retailer', items.create);
   app.get('/api/items/:retailer', items.read);
-
+  app.put('/api/items/:retailer/:item', items.update);
+  app.delete('/api/items/:retailer/:item',items.delete);
 
   //More API...
 };

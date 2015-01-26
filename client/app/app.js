@@ -1,4 +1,6 @@
-//Main app factories
+'ues strict';
+
+
 var app = angular.module('trumpet', []);
 
 
@@ -9,6 +11,19 @@ app.config(function($routeProvider){
     controller: ""
   });
 });
+
+
+// this directive will be for rendering the svg map using d3 and updating it as needed
+app.directive('mapViz', function(){
+
+
+
+
+});
+
+
+
+
 
 
 // app.config(function($routeProvider){

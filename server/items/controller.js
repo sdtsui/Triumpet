@@ -24,12 +24,14 @@ controller.create = function(req,res,next){
           .then(function(item){
             if(!item){
               req.body.retailer_id = retailer._id;
-              console.log(req.body);
-              createItem(req.body);
+              return createItem(req.body);
             } else {
               next (new Error('Item already exit'))
             }
-          });
+          })
+          .fail(function(error){
+            next(error);
+          })
       }
     });
 }

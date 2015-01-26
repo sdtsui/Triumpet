@@ -1,27 +1,27 @@
-//Controller for /api/retailers
-var Retailer = require('./model.js');
+//Controller for /api/users
+var User = require('./model.js');
 var Q        = require('q');
 var jwt      = require('jwt-simple');
 
 var controller = {};
 
 //Promisify mongoose methods
-var findOne  = Q.nbind(Retailer.findOne, Retailer);
-var create   = Q.nbind(Retailer.create, Retailer);
+var findOne  = Q.nbind(User.findOne, User);
+var create   = Q.nbind(User.create, User);
 
-//CREATE method to create a new retailer
+//CREATE method to create a new user
 controller.create = function(req,res,next){
   var username = req.body.username;
 
   findOne({username:username})
-    .then(function(retailer){
-      if(retailer){
-        next(new Error('Retailer already exist'));
+    .then(function(user){
+      if(user){
+        next(new Error('User already exist'));
       } else {
         return create(req.body);
       }
     })
-    .then(function(retailer){
+    .then(function(user){
       //Return JWT token to client after successful sign-up
       var token = jwt.encode(req.body,'secret');
       res.json({token: token});
@@ -31,17 +31,16 @@ controller.create = function(req,res,next){
     });
 };
 
-//signin method for retailer
+//method to sign in a user
 controller.signin = function(req,res,next){
-  //method to sign in a retailer
   var username = req.body.username;
 
   findOne({username:username})
-    .then(function(retailer){
-      if(!retailer){
-        next(new Error('Retailer doesn\'t exist'));
+    .then(function(user){
+      if(!user){
+        next(new Error('User doesn\'t exist'));
       } else {
-        return retailer.comparePassword(req.body.password)
+        return user.comparePassword(req.body.password)
           .then(function(verified){
             if(verified){
                //Return JWT token to client after successful sign-in
@@ -58,29 +57,18 @@ controller.signin = function(req,res,next){
     })
 };
 
-//READ method to fetch all retailers
-controller.read = function(req,res,next){
-  Retailer.find({}).select('-password').exec(function(err,retailers){
-    if(err){
-      res.sendStatus(403);
-    } else {
-      res.send(retailers);
-    }
-  });
-};
-
-//UPDATE method to update attributes for one retailer
+//UPDATE method to update attributes for one User
 controller.update = function(req,res,next){
   findOne({username:req.params.username})
-    .then(function(retailer){
-      if(!retailer){
-        next(new Error('Retailer does not exist'));
+    .then(function(user){
+      if(!user){
+        next(new Error('User does not exist'));
       } else {
         //Update all attributes from req.body
         for (var attr in req.body){
-          retailer[attr] = req.body[attr];
+          user[attr] = req.body[attr];
         }
-        retailer.save();
+        user.save();
         res.sendStatus(300);
       }
     })
@@ -89,14 +77,14 @@ controller.update = function(req,res,next){
     });
 };
 
-//DELETE method to remove retailer
+//DELETE method to remove User
 controller.delete = function(req,res,next){
   findOne({username:req.params.username})
-    .then(function(retailer){
-      if(!retailer){
-        next(new Error('Retailer does not exist'));
+    .then(function(user){
+      if(!user){
+        next(new Error('User does not exist'));
       } else {
-        retailer.remove();
+        user.remove();
         res.sendStatus(300);
       }
     })

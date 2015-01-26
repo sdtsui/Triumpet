@@ -28,8 +28,24 @@ var UsersSchema = new mongoose.Schema({
   email       : {
     type      : String,
     required  : true
-  }
+  },
+  salt        : String
 });
+
+//Method to compare signin password against database
+UsersSchema.methods.comparePassword = function(signin){
+  //Promisify method
+  var defer = Q.defer();
+  var password = this.password;
+  bcrypt.compare(signin,password,function(err,isMatch){
+    if(err){
+      defer.reject(err);
+    } else {
+      defer.resolve(isMatch);
+    }
+  });
+  return defer.promise;
+}
 
 //Hash password with before saving
 UsersSchema.pre('save',function(next){
@@ -47,8 +63,8 @@ UsersSchema.pre('save',function(next){
     }
 
     //Hash password with salt
-    bcrypt.hash(user.passowrd, salt, null,function(err,hash){
-      if(err){ //error handling
+    bcrypt.hash(user.password, salt, null, function(err,hash){
+      if(err){
         return next(err);
       }
 

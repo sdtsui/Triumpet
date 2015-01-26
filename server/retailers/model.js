@@ -18,7 +18,8 @@ var RetailersSchema = new mongoose.Schema({
   },
   password: {
     type      : String,
-    required  : true
+    required  : true,
+    select    : false
   },
   name        : String,
   description : String,
@@ -27,6 +28,21 @@ var RetailersSchema = new mongoose.Schema({
   floorPlan   : [CoordinatesSchema],    //A floorPlan consists of an array of Coordinates
   shelves     : [ShelvesSchema]         //Selves consists of an array of Shelves
 });
+
+//Method to compare signin password against database
+RetailersSchema.methods.comparePassword = function(signin){
+  //Promisify method
+  var defer = Q.defer();
+  var password = this.password;
+  bcrypt.compare(signin,password,function(err,isMatch){
+    if(err){
+      defer.reject(err);
+    } else {
+      defer.resolve(isMatch);
+    }
+  });
+  return defer.promise;
+};
 
 //Hash password with before saving
 RetailersSchema.pre('save',function(next){
@@ -44,7 +60,7 @@ RetailersSchema.pre('save',function(next){
     }
 
     //Hash password with salt
-    bcrypt.hash(retailer.passowrd, salt, null,function(err,hash){
+    bcrypt.hash(retailer.password, salt, null,function(err,hash){
       if(err){ //error handling
         return next(err);
       }

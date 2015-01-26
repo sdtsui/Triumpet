@@ -31,6 +31,32 @@ controller.create = function(req,res,next){
     });
 };
 
+//method to sign in a user
+controller.signin = function(req,res,next){
+  var username = req.body.username;
+
+  findOne({username:username})
+    .then(function(user){
+      if(!user){
+        next(new Error('User doesn\'t exist'));
+      } else {
+        return user.comparePassword(req.body.password)
+          .then(function(verified){
+            if(verified){
+               //Return JWT token to client after successful sign-in
+              var token = jwt.encode(req.body,'secret');
+              res.json({token: token});
+            } else {
+              return next(new Error('Sign-in failed'));
+            }
+          })
+      }
+    })
+    .fail(function(err){
+      next(err);
+    })
+};
+
 //UPDATE method to update attributes for one User
 controller.update = function(req,res,next){
   findOne({username:req.params.username})

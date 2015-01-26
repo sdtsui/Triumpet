@@ -24,7 +24,8 @@ module.exports = function(app, express) {
   */
 
   // Retailers API
-  app.post('/api/retailers',retailers.create);
+  app.post('/api/retailers/signup',retailers.create);
+  app.post('/api/retailers/signin',retailers.signin);
   app.get('/api/retailers',retailers.read);
   app.put('/api/retailers/:username',retailers.update);
   app.delete('/api/retailers/:username',retailers.delete);

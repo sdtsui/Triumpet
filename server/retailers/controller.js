@@ -31,9 +31,36 @@ controller.create = function(req,res,next){
     });
 };
 
+//signin method for retailer
+controller.signin = function(req,res,next){
+  //method to sign in a retailer
+  var username = req.body.username;
+
+  findOne({username:username})
+    .then(function(retailer){
+      if(!retailer){
+        next(new Error('Retailer doesn\'t exist'));
+      } else {
+        return retailer.comparePassword(req.body.password)
+          .then(function(verified){
+            if(verified){
+               //Return JWT token to client after successful sign-in
+              var token = jwt.encode(req.body,'secret');
+              res.json({token: token});
+            } else {
+              return next(new Error('Sign-in failed'));
+            }
+          })
+      }
+    })
+    .fail(function(err){
+      next(err);
+    })
+};
+
 //READ method to fetch all retailers
 controller.read = function(req,res,next){
-  Retailer.find({},function(err,retailers){
+  Retailer.find({}).select('-password').exec(function(err,retailers){
     if(err){
       res.sendStatus(403);
     } else {

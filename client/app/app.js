@@ -1,4 +1,4 @@
-'ues strict';
+'use strict';
 
 angular.module('triumpet', [
   'tp.factories',

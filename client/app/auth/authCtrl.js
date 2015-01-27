@@ -39,7 +39,7 @@ angular.module('tp.auth',[])
 		restrict: 'EA',
 		scope: '=',
 		replace: true,
-		templateUrl:'../app/auth/auth.html',
+		templateUrl:'../app/auth/signup.html',
 		link: function(scope, el, attr){
 		}
 	}

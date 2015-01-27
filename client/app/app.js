@@ -5,12 +5,11 @@ angular.module('triumpet', [
   'tp.auth',
   'tp.editor',
   'tp.map',
-  'ui.router',
-  'ngRoute'
+  'ui.router'
 ])
 
 // configures routes for the app
-.config(function($stateProvider, $httpProvider, $routeProvider){
+.config(function($stateProvider, $httpProvider){
   $stateProvider
     .state('signup',{
       url         : '/signup',

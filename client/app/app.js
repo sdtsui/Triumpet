@@ -25,12 +25,20 @@ angular.module('triumpet', [
 })
 
 // this directive will be for rendering the svg map using d3 and updating it as needed
-.directive('tpMapViz', function(){
+.directive('tpMap', function(){
+  // h,w just for demoing purposes
+  var height = 400;
+  var width  = 400;
+
   // define svg constants here, width/height 
   return {
     restrict: 'AE',
     link: function(scope, element, attrs) {
-
+      var map = d3.select('body')
+                  .append('svg')
+                  .attr(width, width)
+                  .attr(height, height)
+                  .style('fill', 'blue');
     }
   }
 })

@@ -1,5 +1,5 @@
-angular.module('tp.auth',[]);
+angular.module('tp.auth',[])
 
-.controller('AuthCtrl', function($scope,$window,$location,Auth){
-	
+.controller('AuthCtrl', function($scope, $window, $location, Auth){
+
 })

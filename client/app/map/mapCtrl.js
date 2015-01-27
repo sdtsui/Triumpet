@@ -1,4 +1,6 @@
-app.controller('MainCtrl', function($scope, $http){
+angular.module('tp.map',[])
+
+.controller('MapCtrl', function($scope){
   $scope.userLoc;
   $scope.items;
 
@@ -7,4 +9,4 @@ app.controller('MainCtrl', function($scope, $http){
     
   };
 
-});
+})

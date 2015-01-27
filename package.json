@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/JollyPhantom/Triumpet",
   "dependencies": {
+    "angular-ui-router": "^0.2.13",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.10.2",
     "ejs": "~2.2.3",

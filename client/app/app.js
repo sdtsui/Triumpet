@@ -33,12 +33,12 @@ angular.module('triumpet', [
   // define svg constants here, width/height 
   return {
     restrict: 'AE',
-    link: function(scope, element, attrs) {
-      var map = d3.select('body')
+    link: function(scope, element, attrs) { // the scope, element, and attrs are those that contain the directive tp-map
+      // console.log(element[0]);
+      var map = d3.select(element[0])
                   .append('svg')
-                  .attr(width, width)
-                  .attr(height, height)
-                  .style('fill', 'blue');
+                  .attr('width', width)
+                  .attr('height', height)
     }
   }
 })

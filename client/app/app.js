@@ -18,7 +18,7 @@ angular.module('triumpet', [
     })
     .state('home.signup',{
       url         : '/signup',
-      tempalte    : '',
+      template    : '',
       controller  : ''
     })
 })

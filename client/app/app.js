@@ -11,10 +11,18 @@ angular.module('triumpet', [
 // configures routes for the app
 .config(function($stateProvider, $httpProvider){
   $stateProvider
-    .state('signup',{
+    .state('auth',{
+      template    : '<tp-auth></tp-auth>'
+    })
+    .state('auth.signup',{
       url         : '/signup',
-      template    : '<tp-sign-up></tp-sign-up>',
-      controller  : 'AuthCtrl'
+      template    : "<tp-sign-up></tp-sign-up",
+      controller  : "AuthCtrl"
+    })
+    .state('auth.signin',{
+      url         : '/signin',
+      template    : "<tp-sign-in></tp-sign-in",
+      controller  : "AuthCtrl"
     })
     .state('home',{
       url         : '/',
@@ -33,69 +41,31 @@ angular.module('triumpet', [
   var width = $window.innerWidth;
   var height = $window.innerHeight;
   var scale = Math.max(height/roomHeight, width/roomWidth);
-  console.log(scale); 
+  console.log(scale);
 
-  var drag = d3.behavior.drag()
-    .on("drag", function(d,i) {
-        d.x += d3.event.dx
-        d.y += d3.event.dy
-        d3.select(this).attr("transform", function(d,i){
-            return "translate(" + [ d.x,d.y ] + ")"
-        })
-    });
+  return {
+    restrict: 'AE',
+    link: function(scope, element, attrs) { // the scope, element, and attrs are those that contain the directive tp-map
 
-  var addUserToMap = function(event, scope, element){
-    // Ignore the click event if it was suppressed
-    // if (d3.event.defaultPrevented) return;
+      var feetToPixel = function(ft){
+        var foot = width/scale;
+        return ft*foot;
+      };
 
-    // Extract the click location\
-    var x = event.offsetX;
-    var y = event.offsetY;
-    var p = {x: x, y: y};
-
-    // grabs svg element from the parent element
-    var svg = d3.select(element[0].firstChild);
-    
-    // Append a new point
-    svg.append("circle")
-      .attr('cx', p.x)
-      .attr('cy', p.y)
-      .attr('r', 5)
-      // .call(drag);
-  };
-
-  // function to be called in linker which binds all event handlers to the element
-  var addEventListeners = function(scope, element, attrs){
-    element.bind('click', function(e){
-      console.log('click event occurred', e);
-      addUserToMap(e, scope, element);
-    });
-  };
-
-  var linker = function(scope, element, attrs) {
-
-    // wires up event handlers
-    addEventListeners(scope, element, attrs);
-
-    var feetToPixel = function(ft){
-      var foot = width/scale;
-      return ft*foot;
-    };
-
-    // converts coordinates to strings to be used with d3
-    var coorsToString = function(coors, convertToPixel){
-      var result = '';
-      for(var i = 0; i < coors.length; i++){
-        var x = coors[i][0];
-        var y = coors[i][1];
-        if(convertToPixel){
-          x = feetToPixel(x);
-          y = feetToPixel(y);
+      // converts coordinates to strings to be used with d3
+      var coorsToString = function(coors, convertToPixel){
+        var result = '';
+        for(var i = 0; i < coors.length; i++){
+          var x = coors[i][0];
+          var y = coors[i][1];
+          if(convertToPixel){
+            x = feetToPixel(x);
+            y = feetToPixel(y);
+          }
+          result = result+x+','+y+' ';
         }
-        result = result+x+','+y+' ';
-      }
-      return result;
-    };
+        return result;
+      };
 
     // shelf constructor
     var createShelves = function(x,y,w,h){
@@ -163,7 +133,7 @@ angular.module('triumpet', [
 })
 
 .run(function($rootScope, $location, Auth){
-  //TODO: Code to verify token. Uncomment after signin page is complete.
+  //TODO: Code to verify token. Uncomment if any route needs to be authenticated.
 
   // $rootscope.on($routeChangeStart, function(evt, next, current){
   //   if(next.$$route && next.$$route.authenticate && !Auth.isAuth()){

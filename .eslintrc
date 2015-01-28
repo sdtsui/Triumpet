@@ -1,6 +1,0 @@
-{
-  "rules": {
-      "semi": 2,
-      "quotes": [1, 'single']
-  }
-}

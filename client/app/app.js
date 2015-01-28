@@ -92,6 +92,8 @@ angular.module('triumpet', [
       var shelf5 = createShelves(5,17,10,1);
       var shelf6 = createShelves(5,18,10,1);
 
+      var shelves = [shelf1, shelf2, shelf3, shelf4, shelf5, shelf6];
+
       svg.selectAll('rect').data(shelves)
          .enter().append('rect')
          .attr('x',function(d){return d.x})

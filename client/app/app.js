@@ -11,10 +11,18 @@ angular.module('triumpet', [
 // configures routes for the app
 .config(function($stateProvider, $httpProvider){
   $stateProvider
-    .state('signup',{
+    .state('auth',{
+      template    : '<tp-auth></tp-auth>'
+    })
+    .state('auth.signup',{
       url         : '/signup',
-      template    : '<tp-sign-up></tp-sign-up>',
-      controller  : 'AuthCtrl'
+      template    : "<tp-sign-up></tp-sign-up",
+      controller  : "AuthCtrl"
+    })
+    .state('auth.signin',{
+      url         : '/signin',
+      template    : "<tp-sign-in></tp-sign-in",
+      controller  : "AuthCtrl"
     })
     .state('home',{
       url         : '/',
@@ -27,7 +35,7 @@ angular.module('triumpet', [
 // this directive will be for rendering the svg map using d3 and updating it as needed
 .directive('tpMap', function($window){
   // define svg constants here, width/height
-  
+
   var roomHeight = 36;
   var roomWidth = 20;
   var width = $window.innerWidth;
@@ -57,7 +65,7 @@ angular.module('triumpet', [
         }
         return result;
       };
-      
+
       // shelf constructor
       var createShelves = function(x,y,w,h){
         return {
@@ -73,7 +81,7 @@ angular.module('triumpet', [
                   .append('svg')
                   .attr('width', width)
                   .attr('height', height);
-    
+
       // adds floorplan polygon to svg
       var floorplan = svg.append('polygon')
                     .attr('points',coorsToString([
@@ -121,7 +129,7 @@ angular.module('triumpet', [
 })
 
 .run(function($rootScope, $location, Auth){
-  //TODO: Code to verify token. Uncomment after signin page is complete.
+  //TODO: Code to verify token. Uncomment if any route needs to be authenticated.
 
   // $rootscope.on($routeChangeStart, function(evt, next, current){
   //   if(next.$$route && next.$$route.authenticate && !Auth.isAuth()){

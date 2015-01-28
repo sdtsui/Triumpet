@@ -32,7 +32,6 @@
     "q": "~1.1.2"
   },
   "devDependencies": {
-    "gulp": "^3.8.10",
-    "gulp-eslint": "^0.2.2"
+    "gulp": "^3.8.10"
   }
 }

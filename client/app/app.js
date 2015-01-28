@@ -35,17 +35,35 @@ angular.module('triumpet', [
   var scale = Math.max(height/roomHeight, width/roomWidth);
   console.log(scale);
 
+  var addUserToMap = function(event){
+    // Ignore the click event if it was suppressed
+    // if (d3.event.defaultPrevented) return;
+
+    // Extract the click location\
+    var x = event.offsetX;
+    var y = event.offsetY;
+    console.log(x,y);
+    var p = {x: x, y: y};
+
+    // Append a new point
+    svg.append("circle")
+        .attr("transform", "translate(" + p.x + "," + p.y + ")")
+        // .attr("class", "startLoc")
+        .call(drag);
+  };
+
   // function to be called in linker which binds all event handlers to the element
-  var addEventListeners = function(element){
-    element.bind('click', function(){
-      console.log('svg event listener working');
+  var addEventListeners = function(scope, element, attrs){
+    element.bind('click', function(e){
+      console.log('click event occurred');
+      addUserToMap(e);
     });
   };
 
   var linker = function(scope, element, attrs) {
 
     // wires up event handlers
-    addEventListeners(element);
+    addEventListeners(scope, element, attrs);
 
     var feetToPixel = function(ft){
       var foot = width/scale;

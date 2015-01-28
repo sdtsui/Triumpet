@@ -63,7 +63,7 @@ describe('Server Testing : ', function(){
       deleteUser(done, 'phillip');
     });      
 
-    it('Should sign up new users on reciept of a post request...', function(){
+    it('Should create new users on reciept of a post request...', function(){
       var newuser = {
         "email"     : "Phillip@triumpet.com",
         "firstName" : "Phillip",
@@ -83,13 +83,27 @@ describe('Server Testing : ', function(){
         expect(response).to.have.property('token');
       }, function(error){
         console.log('error, code :', error.statusCode);
-        expect('Promise was Rejected').to.be('Promise Fulfilled');//falsy, never get here
+
+        expect(response).to.be.a('object');
+        expect(response).to.have.property('token');
+
       });
 
-    
+
+    });
+    // it('Should not allow creation of users that already exist', function(){});
+
+    // it ('Should fail on sign-in with a user that doesn't exist', function(){});
+
+    // it('Should fail on sign-in with incorrect credentials', function(){});
+
+    // it('Should succeed on sign-in with correct credentials', function(){});
+
+    // it('Should allow users to modify their profiles', function(){});
+
     // it('Should already have a working delete method',function(){
-    //   //afterEach will succeed.
     // })
-    })
+
+
   })
 });

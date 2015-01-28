@@ -33,6 +33,7 @@ angular.module('triumpet', [
   var width = $window.innerWidth;
   var height = $window.innerHeight;
   var scale = Math.max(height/roomHeight, width/roomWidth);
+  console.log(scale);
 
   return {
     restrict: 'AE',
@@ -71,8 +72,8 @@ angular.module('triumpet', [
       // appends svg with pre-defined attribtues
       var svg = d3.select(element[0])
                   .append('svg')
-                  .attr('width', width)
-                  .attr('height', height);
+                  .attr('width', feetToPixel(roomWidth))
+                  .attr('height', feetToPixel(roomHeight));
     
       // adds floorplan polygon to svg
       var floorplan = svg.append('polygon')
@@ -83,7 +84,6 @@ angular.module('triumpet', [
                       [0,36]
                       ],true))
                     .attr('fill','white')
-                    .attr('stroke','blue');
 
       var shelf1 = createShelves(5,0,15,1);
       var shelf2 = createShelves(19,0,1,36);
@@ -100,8 +100,7 @@ angular.module('triumpet', [
          .attr('y',function(d){return d.y})
          .attr('width',function(d){return d.width})
          .attr('height',function(d){return d.height})
-         .attr('stroke','black')
-         .attr('fill','red');
+         .attr('fill','#bbb');
     }
   }
 })

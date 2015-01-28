@@ -28,17 +28,16 @@ svg {
 }
 
 #sign-up-logo {
-	width: 100%;
-	max-width: 400px;
-	min-width: 200px;
+	width: 80vmin;
 }
 
 #sign-up-form>input {
 	border: none;
 	border-radius: 2px;
+	width: 60vmin;
+	max-width: 300px;
 	margin: 2px;
 	height: 30px;
-	width: 300px;
 	box-shadow: 0 0 1px black;
 	padding-left: 10px;
 }

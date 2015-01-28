@@ -18,5 +18,11 @@ angular.module('tp.map',[])
         console.error('[Error]: While Attempting to Fetch Items');
       });
   };
+
+  $scope.addUserToMap = function(event){
+    // firefox/chrome event properties differ??
+    
+  };
+
 });
 

@@ -1,21 +1,20 @@
 var chai = require('chai');
-var chai = require('chai');
-var chaiAsPromised = require('chai-as-promised');
+//Not sure if I'll need:
+// var chaiAsPromised = require('chai-as-promised');
+// chai.use(chaiAsPromised);
+// var should = chai.should;
+
 var request = require('request');
 var rp = require('request-promise');
 var http = require('http');
-var $ = require('jquery');
-
-chai.use(chaiAsPromised);
 var expect = chai.expect;
-var should = chai.should;
 
 //Schema Dependencies
 var Q           = require('q');
 var User        = require('../../server/users/model.js');
 var findOne     = Q.nbind(User.findOne, User);
 var create      = Q.nbind(User.create, User);
-var remove      = Q.nbind(User.remove, User);
+// var remove      = Q.nbind(User.remove, User);
 
 describe('serverSpec', function(){
   it('should begin server tests', function(){
@@ -35,7 +34,23 @@ describe('serverSpec', function(){
       }, function(err){
         cb();
       });
-  }
+    };
+
+  // var deleteUser = function(cb, username){
+  //   findOne({'username': username})
+  //     .then(function(user){
+  //       if(!user){
+  //         console.log('user does not exist');
+  //       } else {
+  //         console.log('removing...');
+  //         user.remove();
+  //         console.log('successful remove');
+  //       }
+  //     })
+  //     .fail(function(error){
+  //       console.log(error);
+  //     });
+  // };
 
 describe('Server Testing : ', function(){
   describe('Users Controller : ', function(){
@@ -71,6 +86,7 @@ describe('Server Testing : ', function(){
         expect('Promise was Rejected').to.be('Promise Fulfilled');//falsy, never get here
       });
 
+    
     // it('Should already have a working delete method',function(){
     //   //afterEach will succeed.
     // })

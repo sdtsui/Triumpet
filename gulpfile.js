@@ -16,7 +16,7 @@ gulp.task('lint', function() {
 });
 
 gulp.task('test', shell.task([
-  'mocha'
+  'mocha -R spec --recursive'
 ]))
 
 gulp.task('default', ['lint'], function () {

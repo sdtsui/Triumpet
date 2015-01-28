@@ -24,6 +24,7 @@ angular.module('tp.auth',[])
 		  	$scope.email = '';
 		  })
 		  .catch(function(error){
+		  	console.log('error in Auth : ',error);
 		  	$scope.message = 'Please re-try';
 		  	$scope.username = '';
 		  	$scope.password = '';

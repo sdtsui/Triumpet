@@ -16,17 +16,22 @@ controller.create = function(req,res,next){
   findOne({username:username})
     .then(function(retailer){
       if(retailer){
-        next(new Error('Retailer already exist'));
+        console.log('sending not okay: retailer :', retailer);
+        res.writeHead(500, {'Content-Type': 'text/plain'});
+        res.end('not okay');
       } else {
-        return create(req.body);
+        console.log('about to next...');
+        next(create(req.body));
       }
     })
     .then(function(retailer){
+      console.log('retailer :', retailer);
       //Return JWT token to client after successful sign-up
       var token = jwt.encode(req.body,'secret');
       res.json({token: token});
     })
     .fail(function(error){
+      console.log('should never ever get here');
       next(error);
     });
 };

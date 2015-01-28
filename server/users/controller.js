@@ -10,24 +10,25 @@ var findOne  = Q.nbind(User.findOne, User);
 var create   = Q.nbind(User.create, User);
 
 //CREATE method to create a new user
-controller.create = function(req,res,next){
+controller.create = function(req,res,next1){
   var username = req.body.username;
-
+  console.log('attempting to create a new user');
   findOne({username:username})
     .then(function(user){
+      console.log('inside then call');
       if(user){
-        next(new Error('User already exist'));
+        console.log('user already exists(1): ');
+        res.writeHead(403, {'Content-Type': 'text/plain'});
+        res.send('User already exists');
       } else {
-        return create(req.body);
+        console.log('about to call create');
+        create(req.body);
+        var token = jwt.encode(req.body,'secret');
+        res.json({token: token});
       }
     })
-    .then(function(user){
-      //Return JWT token to client after successful sign-up
-      var token = jwt.encode(req.body,'secret');
-      res.json({token: token});
-    })
     .fail(function(error){
-      next(error);
+      console.log(error);
     });
 };
 

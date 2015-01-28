@@ -17,8 +17,12 @@ gulp.task('lint', function() {
 
 gulp.task('test', shell.task([
   'mocha -R spec --recursive'
-]))
+]));
 
 gulp.task('default', ['lint'], function () {
     console.log('Files linted.');
 });
+
+gulp.task('serve', shell.task([
+		'nodemon server.js'
+]));

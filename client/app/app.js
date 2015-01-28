@@ -33,30 +33,42 @@ angular.module('triumpet', [
   var width = $window.innerWidth;
   var height = $window.innerHeight;
   var scale = Math.max(height/roomHeight, width/roomWidth);
-  console.log(scale);
+  console.log(scale); 
 
-  var addUserToMap = function(event){
+  var drag = d3.behavior.drag()
+    .on("drag", function(d,i) {
+        d.x += d3.event.dx
+        d.y += d3.event.dy
+        d3.select(this).attr("transform", function(d,i){
+            return "translate(" + [ d.x,d.y ] + ")"
+        })
+    });
+
+  var addUserToMap = function(event, scope, element){
     // Ignore the click event if it was suppressed
     // if (d3.event.defaultPrevented) return;
 
     // Extract the click location\
     var x = event.offsetX;
     var y = event.offsetY;
-    console.log(x,y);
     var p = {x: x, y: y};
 
+    // grabs svg element from the parent element
+    var svg = d3.select(element[0].firstChild);
+    
     // Append a new point
     svg.append("circle")
-        .attr("transform", "translate(" + p.x + "," + p.y + ")")
-        // .attr("class", "startLoc")
-        .call(drag);
+      .attr('cx', p.x)
+      .attr('cy', p.y)
+      .attr('r', 5)
+      // .call(drag);
   };
 
   // function to be called in linker which binds all event handlers to the element
   var addEventListeners = function(scope, element, attrs){
     element.bind('click', function(e){
-      console.log('click event occurred');
-      addUserToMap(e);
+      console.log('click event occurred', e);
+      addUserToMap(e, scope, element);
     });
   };
 

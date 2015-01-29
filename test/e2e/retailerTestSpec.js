@@ -52,6 +52,8 @@ var sampleRetailers = {
         }
 };
 
+module.exports = retailer;
+
 xdescribe('retailer AJAX testing : ', function(){
 
   describe('Path: /signup :', function(){
@@ -62,7 +64,7 @@ xdescribe('retailer AJAX testing : ', function(){
       });
     });
 
-    it('fails to create duplicate users : ', function(done){
+    it('fails to create duplicate retailers : ', function(done){
       retailer.signup(sampleRetailers.phil1, function(e, res){
         expect(res.statusCode).to.equal(500);
         done();
@@ -103,8 +105,12 @@ xdescribe('retailer AJAX testing : ', function(){
       });
     });
   });
+  //use put
+  describe('retailer updating', function(done){});
+  //use get
+  describe('retailer retrieval', function(done){})
 
-  describe('Path: /users - for deletion : ', function(){
+  describe('Path: /retailers - for deletion : ', function(){
 
     it('returns a 500 when attempting to delete nonexistent retailer', function(done){
       retailer.del('all' , function(e, res){
@@ -113,7 +119,7 @@ xdescribe('retailer AJAX testing : ', function(){
       });
     });
 
-    it('Deletes an existing retailer with DEL to /users/: username :',function(done){
+    it('Deletes an existing retailer with DEL to /retailers/: username :',function(done){
       retailer.del('phil1', function(e, res){
         expect(res.statusCode).to.equal(300);
         done();

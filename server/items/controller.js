@@ -14,6 +14,9 @@ var findOneItem      = Q.nbind(Item.findOne, Item);
 
 //CREATE method to create new item
 controller.create = function(req,res,next){
+  console.log('req', req);
+  console.log('req.params', req.params);
+
   var username = req.params.retailer;
   findOneRetailer({username:username})
     .then(function(retailer){

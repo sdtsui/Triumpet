@@ -12,7 +12,7 @@ var q_find      = Q.nbind(User.find, User);
 var dbPath      = process.env.dbPath || 'mongodb://localhost/triumpet';
 var db = mongoose.connect(dbPath);
 
-describe('users CRUD tests', function(){
+describe('ajax: CRUD tests', function(){
 
   describe('C: Create operations', function(){
     afterEach(function(done){
@@ -40,7 +40,6 @@ describe('users CRUD tests', function(){
 
       q_create(newUser)
         .then(function(){
-          console.log('success create')
           expect('pass').to.equal('pass');
           done();
         },function(err){
@@ -269,7 +268,7 @@ describe('users CRUD tests', function(){
         })
     });
 
-    it('does not allow deletion of non-existant users, or unintentional deletion', function(){
+    it('does not allow deletion of nonexistent users, or unintentional deletion', function(){
       //find the current number of users:
       var numUsers = 0;
       q_find({})

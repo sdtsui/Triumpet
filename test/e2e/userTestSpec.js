@@ -43,7 +43,7 @@ var sampleUsers = {
         }
 };
 
-describe('ajax CRUD testing : ', function(){
+describe('user AJAX testing : ', function(){
 
   describe('Path: /signup :', function(){
     it('Creates a new user by posting to /signup : ', function(done){

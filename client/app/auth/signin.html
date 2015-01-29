@@ -1,0 +1,7 @@
+<div id='auth-message' ng-model='message'>{{message}}</div>
+<form id='auth-form'>
+  <input type='text' placeholder='Username' ng-model='username' required></input><br>
+  <input type='password' placeholder='Password' ng-model='password' required></input><br>
+  <button href='' id='auth-submit' type='submit' ng-click='login(username, password)'>Login</button>
+  <a href='#/signup'><div id='auth-submit'>Sign Up</div></a>
+</form>

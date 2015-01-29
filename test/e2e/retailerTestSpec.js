@@ -1,60 +1,73 @@
-var superagent      = require('superagent');
-var chai            = require('chai');
-var expect          = chai.expect;
+var superagent    = require('superagent');
+var chai          = require('chai');
+var expect        = chai.expect;
 
-//Helper functions
-var user = {};
-user.signup   = function(user, cb){
+var retailer      = {};
+retailer.signup   = function(retailer, cb){
   return superagent.post(this.paths.signup)
     .send(user)
     .end(cb);
 };
-user.del      = function(user, cb){
-  var path =''+this.paths.del+user;
-  console.log(path);
-  return superagent.del(path)
-    .end(cb);
-};
-user.signin   = function(userAndPass, cb){
+
+retailer.signin   = function(userAndPass, cb){
   return superagent.post(this.paths.signin)
     .send(userAndPass)
     .end(cb);
 };
-user.paths    = {
-  signup: 'http://localhost:8080/api/users/signup',
-  signin: 'http://localhost:8080/api/users/signin',
-  del: 'http://localhost:8080/api/users/'
+
+retailer.read     = function(retailer, cb){};
+retailer.update   = function(rUsername, cb){};
+retailer.del      = function(retailer, cb){
+  var path =''+this.paths.del+retailer;
+  console.log(path);
+  return superagent.del(path)
+    .end(cb);
+};
+
+retailer.paths    = {
+  signup: 'http://localhost:8080/api/retailers/signup',
+  signin: 'http://localhost:8080/api/retailers/signin',
+  del: 'http://localhost:8080/api/retailers/',
+  update:'http://localhost:8080/api/retailers/',
+  read: 'http://localhost:8080/api/retailers/'
 }
 
-var sampleUsers = {
+
+
+
+
+
+
+
+
+
+var sampleRetailers = {
   phil1: {
           username: 'phil1',
           password: 'phil1',
-          firstName:'phil1',
-          lastName: 'phil1',
-          email: 'phil@phil.com'
+          name:'phil1',
+          description: 'phil1',
         },
   phil2: {
           username: 'phil2',
           password: 'phil2',
-          firstName:'phil2',
-          lastName: 'phil2',
-          email: 'phil2@phil.com'
+          name:'phil2',
+          description: 'phil2'
         }
 };
 
-describe('user AJAX testing : ', function(){
+describe('retailer AJAX testing : ', function(){
 
   describe('Path: /signup :', function(){
-    it('Creates a new user by posting to /signup : ', function(done){
-      user.signup(sampleUsers.phil1, function(e, res){
+    it('Creates a new retailer by posting to /signup : ', function(done){
+      retailer.signup(sampleUsers.phil1, function(e, res){
         expect(res.statusCode).to.equal(200);
         done();
       });
     });
 
     it('fails to create duplicate users : ', function(done){
-      user.signup(sampleUsers.phil1, function(e, res){
+      retailer.signup(sampleUsers.phil1, function(e, res){
         expect(res.statusCode).to.equal(500);
         done();
       });
@@ -63,7 +76,7 @@ describe('user AJAX testing : ', function(){
 
   describe('Path: /signin :', function(){
     it('does not allow sign-in: username does not exist :', function(done){
-      user.signin({
+      retailer.signin({
         username: 'shitbiscuit',
         password: sampleUsers.phil1.password
       }, function(e, res){
@@ -73,7 +86,7 @@ describe('user AJAX testing : ', function(){
     });
 
     it('does not allow sign-in: username exists, password incorrect',function(done){
-      user.signin({
+      retailer.signin({
         username: sampleUsers.phil1.username,
         password: 'inMotherRussiaComputerHacksYOU'
       }, function(e, res){
@@ -83,7 +96,7 @@ describe('user AJAX testing : ', function(){
     });
 
     it('allows sign-in with correct username and password :', function(done){
-      user.signin({
+      retailer.signin({
         username: sampleUsers.phil1.username,
         password: sampleUsers.phil1.password
       }, function(e, res){
@@ -95,15 +108,15 @@ describe('user AJAX testing : ', function(){
 
   describe('Path: /users - for deletion : ', function(){
 
-    it('returns a 500 when attempting to delete nonexistent user', function(done){
-      user.del('all' , function(e, res){
+    it('returns a 500 when attempting to delete nonexistent retailer', function(done){
+      retailer.del('all' , function(e, res){
         expect(res.statusCode).to.equal(500);
         done();
       });
     });
 
-    it('Deletes an existing user with DEL to /users/: username :',function(done){
-      user.del('phil1', function(e, res){
+    it('Deletes an existing retailer with DEL to /users/: username :',function(done){
+      retailer.del('phil1', function(e, res){
         expect(res.statusCode).to.equal(300);
         done();
       });

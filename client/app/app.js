@@ -26,84 +26,126 @@ angular.module('triumpet', [
 
 // this directive will be for rendering the svg map using d3 and updating it as needed
 .directive('tpMap', function($window){
+
   // define svg constants here, width/height
-  
   var roomHeight = 36;
   var roomWidth = 20;
   var width = $window.innerWidth;
   var height = $window.innerHeight;
   var scale = Math.max(height/roomHeight, width/roomWidth);
+  console.log(scale); 
+
+  var drag = d3.behavior.drag()
+    .on("drag", function(d,i) {
+        d.x += d3.event.dx
+        d.y += d3.event.dy
+        d3.select(this).attr("transform", function(d,i){
+            return "translate(" + [ d.x,d.y ] + ")"
+        })
+    });
+
+  var addUserToMap = function(event, scope, element){
+    // Ignore the click event if it was suppressed
+    // if (d3.event.defaultPrevented) return;
+
+    // Extract the click location\
+    var x = event.offsetX;
+    var y = event.offsetY;
+    var p = {x: x, y: y};
+
+    // grabs svg element from the parent element
+    var svg = d3.select(element[0].firstChild);
+    
+    // Append a new point
+    svg.append("circle")
+      .attr('cx', p.x)
+      .attr('cy', p.y)
+      .attr('r', 5)
+      // .call(drag);
+  };
+
+  // function to be called in linker which binds all event handlers to the element
+  var addEventListeners = function(scope, element, attrs){
+    element.bind('click', function(e){
+      console.log('click event occurred', e);
+      addUserToMap(e, scope, element);
+    });
+  };
+
+  var linker = function(scope, element, attrs) {
+
+    // wires up event handlers
+    addEventListeners(scope, element, attrs);
+
+    var feetToPixel = function(ft){
+      var foot = width/scale;
+      return ft*foot;
+    };
+
+    // converts coordinates to strings to be used with d3
+    var coorsToString = function(coors, convertToPixel){
+      var result = '';
+      for(var i = 0; i < coors.length; i++){
+        var x = coors[i][0];
+        var y = coors[i][1];
+        if(convertToPixel){
+          x = feetToPixel(x);
+          y = feetToPixel(y);
+        }
+        result = result+x+','+y+' ';
+      }
+      return result;
+    };
+
+    // shelf constructor
+    var createShelves = function(x,y,w,h){
+      return {
+        x:feetToPixel(x),
+        y:feetToPixel(y),
+        width:feetToPixel(w),
+        height:feetToPixel(h)
+      }
+    }
+
+    // appends svg with pre-defined attribtues
+    var svg = d3.select(element[0])
+                .append('svg')
+                .attr('width', feetToPixel(roomWidth))
+                .attr('height', feetToPixel(roomHeight));
+
+    // adds floorplan polygon to svg
+    var floorplan = svg.append('polygon')
+                  .attr('points',coorsToString([
+                    [0,0],
+                    [20,0],
+                    [20,36],
+                    [0,36]
+                    ],true))
+                  .attr('fill','white');
+
+    var shelf1 = createShelves(5,0,15,1);
+    var shelf2 = createShelves(19,0,1,36);
+    var shelf3 = createShelves(5,35,15,1);
+    var shelf4 = createShelves(0,9,1,18);
+    var shelf5 = createShelves(5,17,10,1);
+    var shelf6 = createShelves(5,18,10,1);
+
+    var shelves = [shelf1, shelf2, shelf3, shelf4, shelf5, shelf6];
+
+    svg.selectAll('rect').data(shelves)
+       .enter().append('rect')
+       .attr('x',function(d){return d.x})
+       .attr('y',function(d){return d.y})
+       .attr('width',function(d){return d.width})
+       .attr('height',function(d){return d.height})
+       .attr('fill','#bbb');
+  };
 
   return {
     restrict: 'AE',
-    link: function(scope, element, attrs) { // the scope, element, and attrs are those that contain the directive tp-map
+    link: linker
+  };
 
-      var feetToPixel = function(ft){
-        var foot = width/scale;
-        return ft*foot;
-      };
-
-      // converts coordinates to strings to be used with d3
-      var coorsToString = function(coors, convertToPixel){
-        var result = '';
-        for(var i = 0; i < coors.length; i++){
-          var x = coors[i][0];
-          var y = coors[i][1];
-          if(convertToPixel){
-            x = feetToPixel(x);
-            y = feetToPixel(y);
-          }
-          result = result+x+','+y+' ';
-        }
-        return result;
-      };
-      
-      // shelf constructor
-      var createShelves = function(x,y,w,h){
-        return {
-          x:feetToPixel(x),
-          y:feetToPixel(y),
-          width:feetToPixel(w),
-          height:feetToPixel(h)
-        }
-      }
-
-      // appends svg with pre-defined attribtues
-      var svg = d3.select(element[0])
-                  .append('svg')
-                  .attr('width', width)
-                  .attr('height', height);
-    
-      // adds floorplan polygon to svg
-      var floorplan = svg.append('polygon')
-                    .attr('points',coorsToString([
-                      [0,0],
-                      [20,0],
-                      [20,36],
-                      [0,36]
-                      ],true))
-                    .attr('fill','white')
-                    .attr('stroke','blue');
-
-      var shelf1 = createShelves(5,0,15,1);
-      var shelf2 = createShelves(19,0,1,36);
-      var shelf3 = createShelves(5,35,15,1);
-      var shelf4 = createShelves(0,9,1,18);
-      var shelf5 = createShelves(5,17,10,1);
-      var shelf6 = createShelves(5,18,10,1);
-
-      var shelves = [shelf1, shelf2, shelf3, shelf4, shelf5, shelf6];
-
-      svg.selectAll('rect').data(shelves)
-         .enter().append('rect')
-         .attr('x',function(d){return d.x})
-         .attr('y',function(d){return d.y})
-         .attr('width',function(d){return d.width})
-         .attr('height',function(d){return d.height})
-         .attr('stroke','black')
-         .attr('fill','red');
-    }
-  }
 })
 
 .factory('AttachTokens',function($window){

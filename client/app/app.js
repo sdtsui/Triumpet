@@ -44,14 +44,13 @@ angular.module('triumpet', [
 
 // this directive will be for rendering the svg map using d3 and updating it as needed
 .directive('tpMap', function($window){
-
   // define svg constants here, width/height
+
   var roomHeight = 36;
   var roomWidth = 20;
   var width = $window.innerWidth;
   var height = $window.innerHeight;
   var scale = Math.max(height/roomHeight, width/roomWidth);
-  console.log(scale);
 
   return {
     restrict: 'AE',
@@ -77,55 +76,52 @@ angular.module('triumpet', [
         return result;
       };
 
-    // shelf constructor
-    var createShelves = function(x,y,w,h){
-      return {
-        x:feetToPixel(x),
-        y:feetToPixel(y),
-        width:feetToPixel(w),
-        height:feetToPixel(h)
+      // shelf constructor
+      var createShelves = function(x,y,w,h){
+        return {
+          x:feetToPixel(x),
+          y:feetToPixel(y),
+          width:feetToPixel(w),
+          height:feetToPixel(h)
+        }
       }
+
+      // appends svg with pre-defined attribtues
+      var svg = d3.select(element[0])
+                  .append('svg')
+                  .attr('width', width)
+                  .attr('height', height);
+
+      // adds floorplan polygon to svg
+      var floorplan = svg.append('polygon')
+                    .attr('points',coorsToString([
+                      [0,0],
+                      [20,0],
+                      [20,36],
+                      [0,36]
+                      ],true))
+                    .attr('fill','white')
+                    .attr('stroke','blue');
+
+      var shelf1 = createShelves(5,0,15,1);
+      var shelf2 = createShelves(19,0,1,36);
+      var shelf3 = createShelves(5,35,15,1);
+      var shelf4 = createShelves(0,9,1,18);
+      var shelf5 = createShelves(5,17,10,1);
+      var shelf6 = createShelves(5,18,10,1);
+
+      var shelves = [shelf1, shelf2, shelf3, shelf4, shelf5, shelf6];
+
+      svg.selectAll('rect').data(shelves)
+         .enter().append('rect')
+         .attr('x',function(d){return d.x})
+         .attr('y',function(d){return d.y})
+         .attr('width',function(d){return d.width})
+         .attr('height',function(d){return d.height})
+         .attr('stroke','black')
+         .attr('fill','red');
     }
-
-    // appends svg with pre-defined attribtues
-    var svg = d3.select(element[0])
-                .append('svg')
-                .attr('width', feetToPixel(roomWidth))
-                .attr('height', feetToPixel(roomHeight));
-
-    // adds floorplan polygon to svg
-    var floorplan = svg.append('polygon')
-                  .attr('points',coorsToString([
-                    [0,0],
-                    [20,0],
-                    [20,36],
-                    [0,36]
-                    ],true))
-                  .attr('fill','white');
-
-    var shelf1 = createShelves(5,0,15,1);
-    var shelf2 = createShelves(19,0,1,36);
-    var shelf3 = createShelves(5,35,15,1);
-    var shelf4 = createShelves(0,9,1,18);
-    var shelf5 = createShelves(5,17,10,1);
-    var shelf6 = createShelves(5,18,10,1);
-
-    var shelves = [shelf1, shelf2, shelf3, shelf4, shelf5, shelf6];
-
-    svg.selectAll('rect').data(shelves)
-       .enter().append('rect')
-       .attr('x',function(d){return d.x})
-       .attr('y',function(d){return d.y})
-       .attr('width',function(d){return d.width})
-       .attr('height',function(d){return d.height})
-       .attr('fill','#bbb');
-  };
-
-  return {
-    restrict: 'AE',
-    link: linker
-  };
-
+  }
 })
 
 .factory('AttachTokens',function($window){

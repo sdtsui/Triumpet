@@ -1,0 +1,10 @@
+<div id='auth-message' ng-model='message'>{{message}}</div>
+<form id='auth-form'>
+  <input type='text' placeholder='Username' ng-model='username' required></input><br>
+  <input type='password' placeholder='Password' ng-model='password' required></input><br>
+  <input type='text' placeholder='Name of Business' ng-model='name' required></input><br>
+  <input type='text' placeholder='Description' ng-model='description' required></input><br>
+  <input type='text' placeholder='Phone Number: XXX-XXX-XXXX' ng-model='phoneNumber' required></input><br>
+  <input type='text' placeholder='Address' ng-model='address' required></input><br>
+  <button href='' id='auth-submit' type='submit' ng-click='createRetailer()'>Sign Up</button>
+</form>

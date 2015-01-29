@@ -18,8 +18,7 @@ var RetailersSchema = new mongoose.Schema({
   },
   password: {
     type      : String,
-    required  : true,
-    select    : false
+    required  : true
   },
   name        : String,
   description : String,

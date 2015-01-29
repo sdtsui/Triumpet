@@ -16,12 +16,22 @@ angular.module('triumpet', [
     })
     .state('auth.signup',{
       url         : '/signup',
-      template    : "<tp-sign-up></tp-sign-up",
+      template    : "<tp-sign-up></tp-sign-up>",
       controller  : "AuthCtrl"
     })
     .state('auth.signin',{
       url         : '/signin',
-      template    : "<tp-sign-in></tp-sign-in",
+      template    : "<tp-sign-in></tp-sign-in>",
+      controller  : "AuthCtrl"
+    })
+    .state('auth.retailerSignin',{
+      url         : '/retailer/signin',
+      template    : "<tp-retailer-signin></tp-retailer-signin>",
+      controller  : "AuthCtrl"
+    })
+    .state('auth.retailerSignup',{
+      url         : '/retailer/signup',
+      template    : "<tp-retailer-signup></tp-retailer-signup>",
       controller  : "AuthCtrl"
     })
     .state('home',{
@@ -132,8 +142,12 @@ angular.module('triumpet', [
   //TODO: Code to verify token. Uncomment if any route needs to be authenticated.
 
   // $rootscope.on($routeChangeStart, function(evt, next, current){
-  //   if(next.$$route && next.$$route.authenticate && !Auth.isAuth()){
+  //   if(next.$$route && next.$$route.userAuth && !Auth.isAuth()){
+  //     $location.path('/signin');
+  //   } else if(next.$$route && next.$$route.retailerAuth && !Auth.isRetailerAuth()){
   //     $location.path('/signin');
   //   }
   // })
+
+
 });

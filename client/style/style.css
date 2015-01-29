@@ -52,6 +52,7 @@ svg {
   margin: 0 0 0 2vw;
   padding: 1vw 2vw 1vw 2vw;
   color: white;
+  overflow-y: scroll; 
 }
 
 #floor-plan-coor {
@@ -123,12 +124,13 @@ svg {
 
 #editor-redirect {
   border: none;
-  width: 8vw;
+  width: 7vw;
   background-color: black;
   color: white;
   margin: -1vw 0 2vw 0;
   display: inline-block;
   text-align: center;
+  font-size: 12px;
 }
 
 #editor-redirect:hover {

@@ -48,7 +48,7 @@ var sampleItems     = {
 
 
 
-describe('item AJAX testing : ', function(){
+xdescribe('item AJAX testing : ', function(){
 
   describe('item creation :', function(){
     it('Creates a new item by posting to /signup : ', function(done){

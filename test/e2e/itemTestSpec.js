@@ -47,29 +47,28 @@ var sampleItems     = {
 
 
 
+describe('retailer AJAX testing : ', function(){
 
-xdescribe('item AJAX testing : ', function(){
-
-  describe('item creation :', function(){
-    it('Creates a new item by posting to /signup : ', function(done){
-      item.signup(sampleRetailers.phil1, function(e, res){
+  describe('Path: /signup :', function(){
+    it('Creates a new retailer by posting to /signup : ', function(done){
+      retailer.signup(sampleRetailers.phil1, function(e, res){
         expect(res.statusCode).to.equal(200);
         done();
       });
     });
 
-    it('fails to create duplicate users : ', function(done){
-      item.signup(sampleRetailers.phil1, function(e, res){
+    it('fails to create duplicate retailers : ', function(done){
+      retailer.signup(sampleRetailers.phil1, function(e, res){
         expect(res.statusCode).to.equal(500);
         done();
       });
     })
   });
 
-  xdescribe('item retrieval :', function(){
+  xdescribe('Path: /signin :', function(){
     //Open Issue: schema has password 'select' field set to false;
     it('does not allow sign-in: username does not exist :', function(done){
-      item.signin({
+      retailer.signin({
         username: 'shitbiscuit',
         password: sampleRetailers.phil1.password
       }, function(e, res){
@@ -79,7 +78,7 @@ xdescribe('item AJAX testing : ', function(){
     });
 
     it('does not allow sign-in: username exists, password incorrect',function(done){
-      item.signin({
+      retailer.signin({
         username: sampleRetailers.phil1.username,
         password: 'inMotherRussiaComputerHacksYOU'
       }, function(e, res){
@@ -89,31 +88,76 @@ xdescribe('item AJAX testing : ', function(){
     });
 
     it('allows sign-in with correct username and password :', function(done){
-      item.signin({
+      retailer.signin({
         username: sampleRetailers.phil1.username,
         password: sampleRetailers.phil1.password
       }, function(e, res){
-        console.log('res : ', res);
         expect(res.statusCode).to.equal(200);
         done();
       });
     });
   });
+  //use put
+  xdescribe('retailer updating', function(){
+    it('should allow updating of a retailer\'s details', function(done){
+      //phil1 already exists
+      //update a retailer's details
+      //find, and see if they match
 
-  xdescribe('item deletion : ', function(){
+      var newParams = {
+        name: 'philAPE',
+        description: 'RAWR!'
+      }
+      retailer.update('phil1', newParams, function(e, res){
+        expect(res.statusCode).to.equal(300);
+        done();
+      });
 
-    it('returns a 500 when attempting to delete nonexistent item', function(done){
-      item.del('all' , function(e, res){
+    });
+
+    it('should throw an error when updating a non-existent retailer', function(done){
+      retailer.update('flagellum', {}, function(e, res){
+        expect(res.statusCode).to.equal(500);
+        done();
+      })
+    });
+  });
+  //use get
+  xdescribe('retailer retrieval', function(){
+    before(function(done){
+      retailer.signup(sampleRetailers.phil2, function(e, res){
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+
+    })
+    it('should return all retailers, after insertion of a new one', function(done){
+
+      retailer.read(function(e, res){
+        expect(res.body.length).to.equal(2);
+        done();
+      })
+    });
+  })
+
+  xdescribe('retailer deletion : ', function(){
+    it('returns a 500 when attempting to delete nonexistent retailer', function(done){
+      retailer.del('all' , function(e, res){
         expect(res.statusCode).to.equal(500);
         done();
       });
     });
 
-    it('Deletes an existing item with DEL to /users/: username :',function(done){
-      item.del('phil1', function(e, res){
+    it('Deletes an existing retailer with DEL to /retailers/: username :',function(done){
+      retailer.del('phil1', function(e, res){
+        expect(res.statusCode).to.equal(300);
+      });
+
+      retailer.del('phil2', function(e, res){
         expect(res.statusCode).to.equal(300);
         done();
       });
+
     });
   });
 });

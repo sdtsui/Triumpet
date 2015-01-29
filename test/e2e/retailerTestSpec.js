@@ -14,7 +14,7 @@ retailer.signin   = function(userAndPass, cb){
     .send(userAndPass)
     .end(cb);
 };
-retailer.read     = function(retailer, cb){
+retailer.read     = function(cb){
   return superagent.get(this.paths.read)
     .end(cb);
 };
@@ -52,11 +52,10 @@ var sampleRetailers = {
         }
 };
 
-module.exports = retailer;
 
 describe('retailer AJAX testing : ', function(){
 
-  xdescribe('Path: /signup :', function(){
+  describe('Path: /signup :', function(){
     it('Creates a new retailer by posting to /signup : ', function(done){
       retailer.signup(sampleRetailers.phil1, function(e, res){
         expect(res.statusCode).to.equal(200);
@@ -99,31 +98,55 @@ describe('retailer AJAX testing : ', function(){
         username: sampleRetailers.phil1.username,
         password: sampleRetailers.phil1.password
       }, function(e, res){
-        console.log('res : ', res);
         expect(res.statusCode).to.equal(200);
         done();
       });
     });
   });
   //use put
-  describe('retailer updating', function(){
-    it('should allow updating of a retailer\'s details', function(){
+  xdescribe('retailer updating', function(){
+    it('should allow updating of a retailer\'s details', function(done){
+      //phil1 already exists
+      //update a retailer's details
+      //find, and see if they match
+
+      var newParams = {
+        name: 'philAPE',
+        description: 'RAWR!'
+      }
+      retailer.update('phil1', newParams, function(e, res){
+        expect(res.statusCode).to.equal(300);
+        done();
+      });
 
     });
 
-    it('should throw an error when updating a non-existent retailer', function(){
-      //see which part of the url it's using
+    it('should throw an error when updating a non-existent retailer', function(done){
+      retailer.update('flagellum', {}, function(e, res){
+        expect(res.statusCode).to.equal(500);
+        done();
+      })
     });
   });
   //use get
-  describe('retailer retrieval', function(){
-    it('should return all retailers', function(){
+  xdescribe('retailer retrieval', function(){
+    before(function(done){
+      retailer.signup(sampleRetailers.phil2, function(e, res){
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
 
+    })
+    it('should return all retailers, after insertion of a new one', function(done){
+
+      retailer.read(function(e, res){
+        expect(res.body.length).to.equal(2);
+        done();
+      })
     });
   })
 
   xdescribe('retailer deletion : ', function(){
-
     it('returns a 500 when attempting to delete nonexistent retailer', function(done){
       retailer.del('all' , function(e, res){
         expect(res.statusCode).to.equal(500);
@@ -134,8 +157,16 @@ describe('retailer AJAX testing : ', function(){
     it('Deletes an existing retailer with DEL to /retailers/: username :',function(done){
       retailer.del('phil1', function(e, res){
         expect(res.statusCode).to.equal(300);
+      });
+
+      retailer.del('phil2', function(e, res){
+        expect(res.statusCode).to.equal(300);
         done();
       });
+
     });
   });
 });
+
+module.exports = retailer;
+

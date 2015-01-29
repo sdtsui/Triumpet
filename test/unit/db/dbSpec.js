@@ -12,7 +12,7 @@ var q_find      = Q.nbind(User.find, User);
 var dbPath      = process.env.dbPath || 'mongodb://localhost/triumpet';
 var db = mongoose.connect(dbPath);
 
-describe('ajax: CRUD tests', function(){
+xdescribe('ajax: CRUD tests', function(){
 
   describe('C: Create operations', function(){
     afterEach(function(done){

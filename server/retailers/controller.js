@@ -35,14 +35,16 @@ controller.create = function(req,res,next){
 controller.signin = function(req,res,next){
   //method to sign in a retailer
   var username = req.body.username;
-
+  console.log('req.body.username, req.body.password',req.body.username, req.body.password);
   findOne({username:username})
     .then(function(retailer){
       if(!retailer){
         next(new Error('Retailer doesn\'t exist'));
       } else {
+        console.log('entering else');
         return retailer.comparePassword(req.body.password)
           .then(function(verified){
+            console.log('entering else');
             if(verified){
                //Return JWT token to client after successful sign-in
               var token = jwt.encode(req.body,'secret');

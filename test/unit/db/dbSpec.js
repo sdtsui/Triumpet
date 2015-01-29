@@ -222,7 +222,7 @@ describe('ajax: CRUD tests', function(){
     });
   });
 
-  describe('D : Delete operations', function(){
+  describe('D: Delete operations', function(){
     before(function(){
       var newUser = {
         "email"     : "Phillip@triumpet.com",

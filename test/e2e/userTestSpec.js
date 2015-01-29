@@ -10,8 +10,7 @@ user.signup   = function(user, cb){
     .end(cb);
 };
 user.del      = function(user, cb){
-  var path =''+this.paths.del+user;
-  console.log(path);
+  var path =this.paths.del+user;
   return superagent.del(path)
     .end(cb);
 };

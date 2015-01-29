@@ -5,21 +5,26 @@ var expect        = chai.expect;
 var retailer      = {};
 retailer.signup   = function(retailer, cb){
   return superagent.post(this.paths.signup)
-    .send(user)
+    .send(retailer)
     .end(cb);
 };
-
 retailer.signin   = function(userAndPass, cb){
+  console.log(userAndPass);
   return superagent.post(this.paths.signin)
     .send(userAndPass)
     .end(cb);
 };
-
-retailer.read     = function(retailer, cb){};
-retailer.update   = function(rUsername, cb){};
+retailer.read     = function(retailer, cb){
+  return superagent.get(this.paths.read)
+    .end(cb);
+};
+retailer.update   = function(rUsername, changes, cb){
+  return superagent.put(this.paths.update+rUsername)
+    .send(changes)
+    .end(cb);
+};
 retailer.del      = function(retailer, cb){
-  var path =''+this.paths.del+retailer;
-  console.log(path);
+  var path =this.paths.del+retailer;
   return superagent.del(path)
     .end(cb);
 };
@@ -31,15 +36,6 @@ retailer.paths    = {
   update:'http://localhost:8080/api/retailers/',
   read: 'http://localhost:8080/api/retailers/'
 }
-
-
-
-
-
-
-
-
-
 
 var sampleRetailers = {
   phil1: {
@@ -60,14 +56,14 @@ describe('retailer AJAX testing : ', function(){
 
   describe('Path: /signup :', function(){
     it('Creates a new retailer by posting to /signup : ', function(done){
-      retailer.signup(sampleUsers.phil1, function(e, res){
+      retailer.signup(sampleRetailers.phil1, function(e, res){
         expect(res.statusCode).to.equal(200);
         done();
       });
     });
 
     it('fails to create duplicate users : ', function(done){
-      retailer.signup(sampleUsers.phil1, function(e, res){
+      retailer.signup(sampleRetailers.phil1, function(e, res){
         expect(res.statusCode).to.equal(500);
         done();
       });
@@ -78,7 +74,7 @@ describe('retailer AJAX testing : ', function(){
     it('does not allow sign-in: username does not exist :', function(done){
       retailer.signin({
         username: 'shitbiscuit',
-        password: sampleUsers.phil1.password
+        password: sampleRetailers.phil1.password
       }, function(e, res){
         expect(res.statusCode).to.equal(500);
         done();
@@ -87,7 +83,7 @@ describe('retailer AJAX testing : ', function(){
 
     it('does not allow sign-in: username exists, password incorrect',function(done){
       retailer.signin({
-        username: sampleUsers.phil1.username,
+        username: sampleRetailers.phil1.username,
         password: 'inMotherRussiaComputerHacksYOU'
       }, function(e, res){
         expect(res.statusCode).to.equal(500);
@@ -97,8 +93,8 @@ describe('retailer AJAX testing : ', function(){
 
     it('allows sign-in with correct username and password :', function(done){
       retailer.signin({
-        username: sampleUsers.phil1.username,
-        password: sampleUsers.phil1.password
+        username: sampleRetailers.phil1.username,
+        password: sampleRetailers.phil1.password
       }, function(e, res){
         expect(res.statusCode).to.equal(200);
         done();
@@ -106,7 +102,7 @@ describe('retailer AJAX testing : ', function(){
     });
   });
 
-  describe('Path: /users - for deletion : ', function(){
+  xdescribe('Path: /users - for deletion : ', function(){
 
     it('returns a 500 when attempting to delete nonexistent retailer', function(done){
       retailer.del('all' , function(e, res){

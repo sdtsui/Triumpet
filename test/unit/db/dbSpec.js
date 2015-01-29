@@ -5,23 +5,16 @@ var should = chai.should;
 var mongoose    = require('mongoose');
 var Q           = require('q');
 var User        = require('../../../server/users/model.js');
-var q_findOne     = Q.nbind(User.findOne, User);
-var q_create      = Q.nbind(User.create, User);
+var q_findOne   = Q.nbind(User.findOne, User);
+var q_create    = Q.nbind(User.create, User);
 var q_find      = Q.nbind(User.find, User);
 
 var dbPath      = process.env.dbPath || 'mongodb://localhost/triumpet';
 var db = mongoose.connect(dbPath);
 
-describe('Dummy DB Test', function(){
-  it ('run server tests', function(){
-    expect('dummy test').to.be.a('string');
-  });
-});
-
 describe('users CRUD tests', function(){
 
   describe('C: Create operations', function(){
-    // beforeEach();
     afterEach(function(done){
       q_findOne({username: 'phillip'})
         .then(function(user){
@@ -79,7 +72,7 @@ describe('users CRUD tests', function(){
           done(new Error('Error : db should already have a duplicate of this user..'));
         })
         .catch(function(err){
-          done();
+          done();//pass
         });
 
     });
@@ -88,7 +81,7 @@ describe('users CRUD tests', function(){
 
 
   describe('R: Read operations : ', function(){
-    beforeEach(function(done){
+    before(function(done){
       var newUsers = [
         {
         "email"     : "Phillip@triumpet.com",
@@ -122,7 +115,7 @@ describe('users CRUD tests', function(){
         });
     });
 
-    afterEach(function(done){
+    after(function(done){
       q_findOne({username: 'phillip4'})
         .then(function(user){
           if(user){
@@ -156,29 +149,6 @@ describe('users CRUD tests', function(){
         },function(err){
           done(err);
         });
-      // q_findOne({username: 'phillip1'})
-      //   .then(function(user){
-      //     if(user){
-      //       user.remove();
-      //       done();
-      //     } else {
-      //       done();
-      //     }
-      //   },function(err){
-      //     done(err);
-      //   });
-      // q_findOne({username: 'phillip22'})
-      //   .then(function(user){
-      //     if(user){
-      //       user.remove();
-      //       done();
-      //     } else {
-      //       done();
-      //     }
-      //   },function(err){
-      //     done(err);
-      //   });
-
     });
 
     it('Returns all inserted elements', function(){
@@ -197,15 +167,12 @@ describe('users CRUD tests', function(){
     });
 
     it('Fails when querying for a non-existent user', function(){
-      q_find({username: 'AAAlkjasdklfjslkajXXBOOPxYY'})
+      q_findOne({username: 'AAAlkjasdklfjslkajXXBOOPxYY'})
         .then(function(users){
-          //OPEN ISSUE
-          // console.log(!!users);
-          // if(!users){console.log('should be falsy')};
-          if(users.length === 0){
-            done()
+          if(!users){
+            done();
           }else{
-            done(new Error('Response is something other than empty array, for non-existent user.'))
+            done(new Error('Response is truthy, for non-existent user.'))
           }
         })
         .catch(function(err){
@@ -215,10 +182,107 @@ describe('users CRUD tests', function(){
 
   }); // R
 
-  describe('U: Update operations', function(){
-    it('updates a user',function(){});
-    it('throws an error when updating a non-existent user',function(){});
-    it('',function(){});
+  xdescribe('U: Update operations', function(){
+    //scaffold for testing profile updating.
+    //MVP does not have this functionality.
+    //Open Issue.
+    before(function(){
+      var newUser = {
+        "email"     : "Phillip@triumpet.com",
+        "firstName" : "phillip4",
+        "lastName"  : "phillip4",
+        "password"  : "phillip4",
+        "username"  : "phillip4"
+        };
+      q_create(newUser)
+        .then(function(){
+          done();
+        })
+        .catch(function(err){
+          done();
+        });
+    });
+    after(function(){
+      q_findOne({username: 'phillip4'})
+        .then(function(user){
+          if(user){
+            user.remove();
+          }
+          done();
+        })
+        .catch(function(err){
+          done();
+        })
+    });
 
+    xit('updates a user',function(){
+
+    });
+    xit('throws an error when updating a non-existent user',function(){
+
+    });
   });
+
+  describe('D : Delete operations', function(){
+    before(function(){
+      var newUser = {
+        "email"     : "Phillip@triumpet.com",
+        "firstName" : "phillip4",
+        "lastName"  : "phillip4",
+        "password"  : "phillip4",
+        "username"  : "phillip4"
+        };
+      q_create(newUser)
+        .then(function(){
+          done();
+        })
+        .catch(function(err){
+          done();
+        });
+    });
+
+    after(function(){
+      q_findOne({username: 'phillip4'})
+        .then(function(user){
+          if(user){
+            user.remove();
+          }
+          done();
+        })
+        .catch(function(err){
+          done();
+        })
+    });
+
+    it('allows deletion of existing users', function(){
+      q_findOne({username: 'phillip4'})
+        .then(function(user){
+          if(user){
+            user.remove();
+            done();
+          }else{
+            done(new Error('no user found, cannot delete'));
+          }
+        })
+        .catch(function(err){
+          done(err);
+        })
+    });
+
+    it('does not allow deletion of non-existant users', function(){
+      q_findOne({username: 'arglebargle'})
+        .then(function(user){
+          if(user){
+            user.remove();
+            done(new Error('found a user when should not exist'));
+          } else{
+            done();
+          }
+        })
+        .catch(function(err){
+          done(err);
+        })
+    });
+  });
+
 });

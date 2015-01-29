@@ -269,7 +269,14 @@ describe('users CRUD tests', function(){
         })
     });
 
-    it('does not allow deletion of non-existant users', function(){
+    it('does not allow deletion of non-existant users, or unintentional deletion', function(){
+      //find the current number of users:
+      var numUsers = 0;
+      q_find({})
+        .then(function(users){
+          numUsers = users.length;
+        });
+
       q_findOne({username: 'arglebargle'})
         .then(function(user){
           if(user){
@@ -282,6 +289,13 @@ describe('users CRUD tests', function(){
         .catch(function(err){
           done(err);
         })
+
+      //expect nothing else to have been deleted
+      q_find({})
+        .then(function(users){
+          expect(users.length).to.equal(numUsers);
+        });
+
     });
   });
 

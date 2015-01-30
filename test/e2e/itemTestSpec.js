@@ -5,23 +5,21 @@ var retailer      = require('./retailerTestSpec.js');
 var item          = {};
 
 item.create       = function(item, rUserName, cb){
-  console.log(item);
-  item.retailer = rUserName;
   return superagent.post(this.paths.create+rUserName)
     .send(item)
     .end(cb);
 };
-item.read         = function(item, rUserName, cb){
+item.read         = function(rUserName, cb){
   return superagent.get(this.paths.read+rUserName)
     .end(cb);
 };
 item.update       = function(rUserName, itemName, changes, cb){
-  return superagent.put(this.paths.update+rUsername+'/'+itemName)
+  return superagent.put(this.paths.update+rUserName+'/'+itemName)
     .send(changes)
     .end(cb);
 };
 item.del          = function(rUserName, itemName, cb){
-  var path =this.paths.del+rUsername+'/'+itemName;
+  var path =this.paths.del+rUserName+'/'+itemName;
   return superagent.del(path)
     .end(cb);
 };
@@ -40,18 +38,20 @@ var sampleItems   = {
         },
   philThing2: {
           name: 'phil2Stuff',
-          category: 'phil2StuffCategory'
+          category: 'philStuffCategory2'
         }
 };
 
-
-//Breaker, forgot to finish all of retailers
-
-
-
-
 describe('item AJAX testing : ', function(){
   before(function(done){
+    //cleanup
+    console.log('Test cleanup');
+    item.del('phil1', sampleItems.philThing1.name, function(e, res){
+      console.log('1 del');
+    });
+    item.del('phil1', 'philAPE', function(e, res){
+      console.log('ape del')
+    });
     //make sure a retailer is present, to insert into
     var phil = {
       username: 'phil1',
@@ -69,9 +69,17 @@ describe('item AJAX testing : ', function(){
     });
 
   describe('item creation :', function(){
-    it('creates a new item : ', function(done){
+    it('creates one new item : ', function(done){
       item.create(sampleItems.philThing1, 'phil1', function(e, res){
-        console.log('res body, res statuscode', res.body, res.statusCode);
+        // console.log('res body, res statuscode, e', res.body, res.statusCode, e);
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+    });
+
+    it('can add additional items: ', function(done){
+      item.create(sampleItems.philThing2, 'phil1', function(e, res){
+        // console.log('res body, res statuscode, e', res.body, res.statusCode, e);
         expect(res.statusCode).to.equal(200);
         done();
       });
@@ -95,97 +103,72 @@ describe('item AJAX testing : ', function(){
     });
   });
 
-  xdescribe('Path: /signin :', function(){
-    //Open Issue: schema has password 'select' field set to false;
-    it('does not allow sign-in: username does not exist :', function(done){
-      item.signin({
-        username: 'shitbiscuit',
-        password: sampleRetailers.phil1.password
-      }, function(e, res){
-        expect(res.statusCode).to.equal(500);
-        done();
-      });
-    });
-
-    it('does not allow sign-in: username exists, password incorrect',function(done){
-      item.signin({
-        username: sampleRetailers.phil1.username,
-        password: 'inMotherRussiaComputerHacksYOU'
-      }, function(e, res){
-        expect(res.statusCode).to.equal(500);
-        done();
-      });
-    });
-
-    it('allows sign-in with correct username and password :', function(done){
-      item.signin({
-        username: sampleRetailers.phil1.username,
-        password: sampleRetailers.phil1.password
-      }, function(e, res){
+  
+  describe('Item reading :', function(){
+    it('Returns all items for a specific retailer :', function(done){
+      item.read('phil1', function(e, res){
+        expect(res.body.length).to.equal(2);
         expect(res.statusCode).to.equal(200);
+        done();
+      });
+    });
+
+    it('Throws an error when items are requested for a non-existent retailer',function(done){
+      item.read('phillipe', function(e, res){
+        expect(res.statusCode).to.equal(500);
         done();
       });
     });
   });
   //use put
-  xdescribe('item updating', function(){
+  describe('item updating :', function(){
     it('should allow updating of an item\'s details', function(done){
-      //phil1 already exists
-      //update an item's details
-      //find, and see if they match
-
       var newParams = {
         name: 'philAPE',
-        description: 'RAWR!'
+        category: 'APE'
       }
-      item.update('phil1', newParams, function(e, res){
+      item.update('phil1', 'philStuff', newParams, function(e, res){
         expect(res.statusCode).to.equal(300);
-        done();
+        //Reads all of phil1's items, makes sure the new one exists.
+        item.read('phil1', function(e, res){
+          console.log(res.body);
+          var matched = false;
+          expect(res.body.length).to.equal(2);
+          expect(res.statusCode).to.equal(200);
+          for(var i = 0; i < res.body.length; i++){
+            if(res.body[i].name === 'philAPE'){
+              if(res.body[i].category === 'APE'){
+                matched = true;
+              }
+            }
+          }
+          matched ? done() : done(new Error('no match, update failed'));
+        });
       });
-
     });
 
     it('should throw an error when updating a non-existent item', function(done){
-      item.update('flagellum', {}, function(e, res){
+      item.update('phil1', 'perpetualMotionMachine', {}, function(e, res){
         expect(res.statusCode).to.equal(500);
         done();
-      })
-    });
-  });
-  //use get
-  xdescribe('item retrieval', function(){
-    before(function(done){
-      item.create(sampleRetailers.phil2, function(e, res){
-        expect(res.statusCode).to.equal(200);
-        done();
       });
-
-    })
-    it('should return all retailers, after insertion of a new one', function(done){
-
-      item.read(function(e, res){
-        expect(res.body.length).to.equal(2);
-        done();
-      })
     });
-  })
 
-  xdescribe('item deletion : ', function(){
+  });//item updating
+
+  describe('item deletion : ', function(){
     it('returns a 500 when attempting to delete nonexistent item', function(done){
       item.del('all' , function(e, res){
-        expect(res.statusCode).to.equal(500);
-        done();
+        done(new Error('Should not be getting a response if item doesn\'t exist.'));//will call done twice if we get an error
       });
+      done();
     });
 
-    it('Deletes an existing item with DEL to /retailers/: username :',function(done){
-      item.del('phil1', function(e, res){
+    it('Deletes an existing item :',function(done){
+      item.del('phil1', sampleItems.philThing2.name, function(e, res){
+        console.log('phil2 del');
         expect(res.statusCode).to.equal(300);
-      });
-
-      item.del('phil2', function(e, res){
-        expect(res.statusCode).to.equal(300);
-        done();
+        done();      
       });
 
     });

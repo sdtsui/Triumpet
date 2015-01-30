@@ -14,12 +14,12 @@ var findOneItem      = Q.nbind(Item.findOne, Item);
 
 //CREATE method to create new item
 controller.create = function(req,res,next){
-  console.log('req', req);
-  console.log('req.params', req.params);
-
+  console.log('req.params : ', req.params);
+  console.log('req.body : ' , req.body);
   var username = req.params.retailer;
   findOneRetailer({username:username})
     .then(function(retailer){
+      console.log('inside .then; retailer :', retailer);
       if(!retailer){
         next(new Error('Retailer doesn\'t exist'));
       } else {
@@ -27,6 +27,7 @@ controller.create = function(req,res,next){
           .then(function(item){
             if(!item){
               req.body.retailer_id = retailer._id;
+              res.send(item);
               return createItem(req.body);
             } else {
               next (new Error('Item already exit'))

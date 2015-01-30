@@ -72,7 +72,6 @@ xdescribe('retailer AJAX testing : ', function(){
   });
 
   xdescribe('Path: /signin :', function(){
-    //Open Issue: schema has password 'select' field set to false;
     it('does not allow sign-in: username does not exist :', function(done){
       retailer.signin({
         username: 'shitbiscuit',

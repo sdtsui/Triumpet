@@ -45,13 +45,11 @@ var sampleItems   = {
 describe('item AJAX testing : ', function(){
   before(function(done){
     //cleanup
-    console.log('Test cleanup');
     item.del('phil1', sampleItems.philThing1.name, function(e, res){
-      console.log('1 del');
     });
     item.del('phil1', 'philAPE', function(e, res){
-      console.log('ape del')
     });
+
     //make sure a retailer is present, to insert into
     var phil = {
       username: 'phil1',
@@ -59,19 +57,18 @@ describe('item AJAX testing : ', function(){
       name:'phil1',
       description: 'phil1'
     };
+
     //create phil
     superagent.post(retailer.paths.signup)
       .send(phil)
       .end(function(err, res){
         done();
       });
-
-    });
+  });
 
   describe('item creation :', function(){
     it('creates one new item : ', function(done){
       item.create(sampleItems.philThing1, 'phil1', function(e, res){
-        // console.log('res body, res statuscode, e', res.body, res.statusCode, e);
         expect(res.statusCode).to.equal(200);
         done();
       });
@@ -79,7 +76,6 @@ describe('item AJAX testing : ', function(){
 
     it('can add additional items: ', function(done){
       item.create(sampleItems.philThing2, 'phil1', function(e, res){
-        // console.log('res body, res statuscode, e', res.body, res.statusCode, e);
         expect(res.statusCode).to.equal(200);
         done();
       });
@@ -87,7 +83,6 @@ describe('item AJAX testing : ', function(){
 
     it('fails to create duplicate items : ', function(done){
       item.create(sampleItems.philThing1, 'phil1', function(e, res){
-        console.log('res body, res statuscode', res.body, res.statusCode);
         expect(res.statusCode).to.equal(500);
         done();
       });
@@ -95,15 +90,12 @@ describe('item AJAX testing : ', function(){
 
     it('fails to create items for non-existent retailers', function(done){
       item.create(sampleItems.philThing2, 'phil99', function(e, res){
-        console.log('res body, res statuscode', res.body, res.statusCode);
         expect(res.statusCode).to.equal(500);
         done();
       });
-
     });
   });
 
-  
   describe('Item reading :', function(){
     it('Returns all items for a specific retailer :', function(done){
       item.read('phil1', function(e, res){
@@ -120,7 +112,7 @@ describe('item AJAX testing : ', function(){
       });
     });
   });
-  //use put
+
   describe('item updating :', function(){
     it('should allow updating of an item\'s details', function(done){
       var newParams = {
@@ -129,9 +121,9 @@ describe('item AJAX testing : ', function(){
       }
       item.update('phil1', 'philStuff', newParams, function(e, res){
         expect(res.statusCode).to.equal(300);
+
         //Reads all of phil1's items, makes sure the new one exists.
         item.read('phil1', function(e, res){
-          console.log(res.body);
           var matched = false;
           expect(res.body.length).to.equal(2);
           expect(res.statusCode).to.equal(200);
@@ -166,11 +158,12 @@ describe('item AJAX testing : ', function(){
 
     it('Deletes an existing item :',function(done){
       item.del('phil1', sampleItems.philThing2.name, function(e, res){
-        console.log('phil2 del');
         expect(res.statusCode).to.equal(300);
         done();      
       });
 
     });
   });
+
 });
+

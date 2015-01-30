@@ -11,8 +11,7 @@ var q_find      = Q.nbind(User.find, User);
 var dbPath      = process.env.dbPath || 'mongodb://localhost/triumpet';
 var db = mongoose.connect(dbPath);
 
-xdescribe('ajax: CRUD tests', function(){
-
+describe('ajax: CRUD tests', function(){
   describe('C: Create operations', function(){
     afterEach(function(done){
       q_findOne({username: 'phillip'})
@@ -39,12 +38,10 @@ xdescribe('ajax: CRUD tests', function(){
 
       q_create(newUser)
         .then(function(){
-          expect('pass').to.equal('pass');
           done();
         },function(err){
-          console.log('failure create');
           expect('fail').to.not.equal('fail');
-          done(err);
+          done(new Error('failed to create'));
         });
     }) //create unique user
 
@@ -76,7 +73,6 @@ xdescribe('ajax: CRUD tests', function(){
     });
 
   }); // C
-
 
   describe('R: Read operations : ', function(){
     before(function(done){
@@ -180,7 +176,7 @@ xdescribe('ajax: CRUD tests', function(){
 
   }); // R
 
-  xdescribe('U: Update operations', function(){
+  describe('U: Update operations', function(){
     //scaffold for testing profile updating.
     //MVP does not have this functionality.
     //Open Issue.
@@ -219,7 +215,7 @@ xdescribe('ajax: CRUD tests', function(){
     xit('throws an error when updating a non-existent user',function(){
 
     });
-  });
+  }); //U
 
   describe('D: Delete operations', function(){
     before(function(){
@@ -295,6 +291,6 @@ xdescribe('ajax: CRUD tests', function(){
         });
 
     });
-  });
+  }); //D
 
 });

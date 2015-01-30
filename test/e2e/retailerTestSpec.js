@@ -9,7 +9,6 @@ retailer.signup   = function(retailer, cb){
     .end(cb);
 };
 retailer.signin   = function(userAndPass, cb){
-  console.log(userAndPass);
   return superagent.post(this.paths.signin)
     .send(userAndPass)
     .end(cb);
@@ -52,8 +51,12 @@ var sampleRetailers = {
         }
 };
 
-
-xdescribe('retailer AJAX testing : ', function(){
+describe('retailer AJAX testing : ', function(){
+  before(function(done){
+    retailer.del(sampleRetailers.phil1.username, function(e,res){
+      done();
+    });
+  })
 
   describe('Path: /signup :', function(){
     it('Creates a new retailer by posting to /signup : ', function(done){
@@ -71,7 +74,7 @@ xdescribe('retailer AJAX testing : ', function(){
     })
   });
 
-  xdescribe('Path: /signin :', function(){
+  describe('Path: /signin :', function(){
     it('does not allow sign-in: username does not exist :', function(done){
       retailer.signin({
         username: 'shitbiscuit',
@@ -102,13 +105,8 @@ xdescribe('retailer AJAX testing : ', function(){
       });
     });
   });
-  //use put
-  xdescribe('retailer updating', function(){
+  describe('retailer updating', function(){
     it('should allow updating of a retailer\'s details', function(done){
-      //phil1 already exists
-      //update a retailer's details
-      //find, and see if they match
-
       var newParams = {
         name: 'philAPE',
         description: 'RAWR!'
@@ -127,8 +125,8 @@ xdescribe('retailer AJAX testing : ', function(){
       })
     });
   });
-  //use get
-  xdescribe('retailer retrieval', function(){
+
+  describe('retailer retrieval', function(){
     before(function(done){
       retailer.signup(sampleRetailers.phil2, function(e, res){
         expect(res.statusCode).to.equal(200);
@@ -137,7 +135,6 @@ xdescribe('retailer AJAX testing : ', function(){
 
     })
     it('should return all retailers, after insertion of a new one', function(done){
-
       retailer.read(function(e, res){
         expect(res.body.length).to.equal(2);
         done();
@@ -145,7 +142,7 @@ xdescribe('retailer AJAX testing : ', function(){
     });
   })
 
-  xdescribe('retailer deletion : ', function(){
+  describe('retailer deletion : ', function(){
     it('returns a 500 when attempting to delete nonexistent retailer', function(done){
       retailer.del('all' , function(e, res){
         expect(res.statusCode).to.equal(500);
@@ -162,10 +159,9 @@ xdescribe('retailer AJAX testing : ', function(){
         expect(res.statusCode).to.equal(300);
         done();
       });
-
     });
   });
+
 });
 
 module.exports = retailer;
-

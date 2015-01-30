@@ -2,7 +2,6 @@ var superagent      = require('superagent');
 var chai            = require('chai');
 var expect          = chai.expect;
 
-//Helper functions
 var user = {};
 user.signup   = function(user, cb){
   return superagent.post(this.paths.signup)
@@ -42,7 +41,7 @@ var sampleUsers = {
         }
 };
 
-xdescribe('user AJAX testing : ', function(){
+describe('user AJAX testing : ', function(){
 
   describe('Path: /signup :', function(){
     it('Creates a new user by posting to /signup : ', function(done){
@@ -108,4 +107,5 @@ xdescribe('user AJAX testing : ', function(){
       });
     });
   });
+
 });

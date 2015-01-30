@@ -1,0 +1,20 @@
+<div ng-repeat='(index,item) in items'>
+  <span id='items-attr'>{{ 'Name:  '}}
+    <input type='text' value='{{item.name}}' ng-model='items[index].name'></input>
+  </span>
+  <br>
+  <span id='items-attr'>{{ 'Category:  '}}
+    <input type='text' value='{{item.category}}' ng-model='items[index].category'></input>
+  </span>
+  <br>
+	<div ng-repeat='(i,coor) in item.coordinates'>
+	  <span id='items-attr'>{{ 'X:  '}}
+	    <input type='number' value='{{coor.x}}' ng-model='items[index].coordinates[i].x' ng-change='drawItems(items, scale, svg)'></input>
+	  </span>
+	  <span id='items-attr'>{{ 'Y:  '}}
+	    <input type='number' value='{{coor.y}}' ng-model='items[index].coordinates[i].y' ng-change='drawItems(items, scale, svg)'></input>
+	  </span>
+	</div>
+  <br>
+</div>
+<button href='' id='editor-submit' type='submit' ng-click='updateAllItems()'>update</button>

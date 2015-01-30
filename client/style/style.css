@@ -55,11 +55,11 @@ svg {
   overflow-y: scroll; 
 }
 
-#floor-plan-coor {
+#floor-plan-coor, #shelves-coor, #items-attr {
   width: 8vw;
 }
 
-#floor-plan-coor>input {
+#floor-plan-coor>input, #shelves-coor>input, #items-attr>input {
   width: 8vw;
   font-size: 1vw;
   color: black;

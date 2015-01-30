@@ -38,13 +38,24 @@ angular.module('triumpet', [
       template    : '<tp-editor></tp-editor>',
       controller  : 'EditorCtrl'
     })
-    .state('editor.test',{
+    .state('editor.floorplan',{
       url         : '/:retailer/editor/floorplan',
       template    : '<tp-floor-plan></tp-floor-plan>',
       controller  : 'EditorCtrl',
       retailerAuth: true
     })
-    .state('home',{
+    .state('editor.shelves',{
+      url         : '/:retailer/editor/shelves',
+      template    : '<tp-shelves></tp-shelves>',
+      controller  : 'EditorCtrl',
+      retailerAuth: true
+    })
+    .state('editor.items',{
+      url         : '/:retailer/editor/items',
+      template    : '<tp-items></tp-items>',
+      controller  : 'EditorCtrl',
+      retailerAuth: true
+    })    .state('home',{
       url         : '/',
       templateUrl : "",
       controller  : ""

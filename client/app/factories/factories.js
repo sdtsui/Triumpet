@@ -3,6 +3,7 @@ angular.module('tp.factories',[])
 .factory('Map', function($http){
 	var map = {};
 
+	//Update data on retailers
 	map.update = function(username,data){
 		return $http({
 			method: 'PUT',
@@ -11,7 +12,69 @@ angular.module('tp.factories',[])
 		});
 	};
 
+	//Fetch one retailer from database and return as a promise
+  map.fetch = function(username){
+    return $http({
+      method: 'GET',
+      url: '/api/retailers/'+username
+    })
+    .then(function(retailer){
+      return retailer.data;
+    });
+  };
+
+  // converts floor plan to strings to be used with d3
+  map.getFloorPlanString = function(floorPlan, scale){
+    var coors = floorPlan;
+    var result = '';
+    for(var i = 0; i < coors.length; i++){
+      var x = coors[i].x*scale;
+      var y = coors[i].y*scale;
+      result = result+x+','+y+' ';
+    }
+    return result;
+  };
+
+  // draw floor plan on svg specified as one of the inputs
+  map.drawFloorPlan = function(floorPlan, scale, svg){
+  	svg.selectAll('polygon').remove();
+    var fp = svg.selectAll('polygon').data([0]);
+    fp.enter().append('polygon');
+    fp.attr('points', map.getFloorPlanString(floorPlan, scale))
+      .attr('fill','white')
+      .attr('stroke','blue');
+  };
+
+  // draw shelves on svg specified as one of the inputs
+  map.drawShelves = function(shelves, scale, svg){
+  	svg.selectAll('rect').remove();
+    var fp = svg.selectAll('rect').data(shelves);
+    fp.enter().append('rect');
+    fp.attr('x', function(d){return d.x*scale})
+	    .attr('y', function(d){return d.y*scale})
+	    .attr('width', function(d){return d.width*scale})
+	    .attr('height', function(d){return d.height*scale})
+      .attr('fill','grey')
+      .attr('stroke','black');
+  };
+
 	return map;
+})
+
+.factory('Item',function($http){
+	var item = {};
+
+	item.fetchItems = function(username){
+		return $http({
+      method: 'GET',
+      url: '/api/items/'+username
+    })
+    .then(function(item){
+      return item.data;
+    });
+	}
+
+	return item;
 })
 
 .factory('Auth',function($http, $location, $window){

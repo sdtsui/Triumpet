@@ -1,11 +1,11 @@
 <div ng-repeat='(index,coor) in data.floorPlan'>
   <span id='floor-plan-coor'>{{ 'X:  '}}
-    <input type='number' value='{{coor.x}}' ng-model='data.floorPlan[index].x' ng-change='drawFloorPlan()'></input>
+    <input type='number' value='{{coor.x}}' ng-model='data.floorPlan[index].x' ng-change='drawFloorPlan(data.floorPlan, scale, svg)'></input>
   </span>
   <span id='floor-plan-coor'>{{ 'Y:  '}}
-    <input type='number' value="{{coor.y}}" ng-model='data.floorPlan[index].y' ng-change='drawFloorPlan()'></input>
+    <input type='number' value="{{coor.y}}" ng-model='data.floorPlan[index].y' ng-change='drawFloorPlan(data.floorPlan, scale, svg)'></input>
   </span>
-  <button href='' id='editor-delete' type='delete' ng-click='deleteFloorPlan(index); drawFloorPlan()'>X</button>
+  <button href='' id='editor-delete' type='delete' ng-click='delete(index, "floorPlan"); drawFloorPlan(data.floorPlan, scale, svg)'>X</button>
   <br>
 </div>
-<button href='' id='editor-submit' type='submit' ng-click='updateFloorPlan()'>update</button>
+<button href='' id='editor-submit' type='submit' ng-click='updateAll()'>update</button>

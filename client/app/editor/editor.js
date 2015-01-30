@@ -1,51 +1,30 @@
 angular.module('tp.editor',[])
 
-.controller('EditorCtrl', function($scope, $stateParams, $http, Map){
+.controller('EditorCtrl', function($scope, $stateParams, $http, Map, Item){
+  angular.extend($scope,Map,Item);
   $scope.data = {};
-  $scope.scale = 1.5;
+  // $scope.items = [];
+  $scope.scale = 15;
 
-  $scope.fetch = function(username){
-    $http({
-      method: 'GET',
-      url: '/api/retailers/'+username
-    })
-    .then(function(retailer){
-      $scope.data = retailer.data;
-      $scope.drawFloorPlan();
-    });
+  $scope.updateAll = function(){
+    Map.update($scope.data.username, $scope.data);
   };
 
-  $scope.getFloorPlanString = function(){
-   // converts coordinates to strings to be used with d3
-    var coors = $scope.data.floorPlan;
-    var result = '';
-    for(var i = 0; i < coors.length; i++){
-      var x = coors[i].x*$scope.scale;
-      var y = coors[i].y*$scope.scale;
-      result = result+x+','+y+' ';
-    }
-    return result;
-  };
-
-  $scope.drawFloorPlan = function(){
-    var fp = $scope.svg.selectAll('polygon').data([0]);
-    fp.enter().append('polygon');
-    fp.attr('points',$scope.getFloorPlanString())
-      .attr('fill','white')
-      .attr('stroke','blue');
-  };
-
-  $scope.updateFloorPlan = function(){
-    Map.update($scope.data.username, {floorPlan:$scope.data.floorPlan});
-  };
-
-  $scope.deleteFloorPlan = function(index){
-    $scope.data.floorPlan.splice(index,1);
-    Map.update($scope.data.username, {floorPlan:$scope.data.floorPlan});
+  $scope.delete = function(index, attr){
+    $scope.data[attr].splice(index,1);
   };
 
   if($stateParams.retailer){ 
-    $scope.fetch($stateParams.retailer);
+    Map.fetch($stateParams.retailer)
+      .then(function(data){
+        $scope.data = data;
+        Map.drawFloorPlan($scope.data.floorPlan, $scope.scale, $scope.svg);
+        Map.drawShelves($scope.data.shelves, $scope.scale, $scope.svg);
+      })
+    Item.fetchItems($stateParams.retailer)
+      .then(function(items){
+        $scope.items = items;
+      })
   }
   // $scope.device = navigator.userAgent;
 })
@@ -62,12 +41,13 @@ angular.module('tp.editor',[])
       var height = $window.innerHeight;
       scope.svg = d3.select('#map-main').append('svg')
         .attr('id','map-svg')
+
     }
   }
 })
 
 //Floor Plan
-.directive('tpFloorPlan',function($window){
+.directive('tpFloorPlan',function($window, Map){
   return {
     restrict: 'EA',
     scope: false,
@@ -78,15 +58,62 @@ angular.module('tp.editor',[])
       scope.svg.on('click',function(){
           var x = d3.mouse(this)[0]/scope.scale;
           var y = d3.mouse(this)[1]/scope.scale;
-          scope.coor = {
-            x:x,
-            y:y
-          };
           scope.data.floorPlan.push({
             x:x,
             y:y
           });
-          scope.drawFloorPlan();
+          Map.drawFloorPlan(scope.data.floorPlan, scope.scale, scope.svg);
+          scope.$apply();
+        });
+    }
+  }
+})
+
+//Shelves
+.directive('tpShelves',function($window, Map){
+  return {
+    restrict: 'EA',
+    scope: false,
+    templateUrl:'../app/editor/shelves.html',
+    link: function(scope, el, attr){
+      var width = $window.innerWidth;
+      var height = $window.innerHeight;
+      scope.svg.on('click',function(){
+          var x = d3.mouse(this)[0]/scope.scale;
+          var y = d3.mouse(this)[1]/scope.scale;
+          scope.data.shelves.push({
+            x:x,
+            y:y,
+            width:2,
+            height:6
+          });
+          Map.drawShelves(scope.data.shelves, scope.scale, scope.svg);
+          scope.$apply();
+        });
+    }
+  }
+})
+
+//Items
+.directive('tpItems',function($window, Map){
+  return {
+    restrict: 'EA',
+    scope: false,
+    templateUrl:'../app/editor/items.html',
+    link: function(scope, el, attr){
+      var width = $window.innerWidth;
+      var height = $window.innerHeight;
+      scope.svg.on('click',function(){
+          var x = d3.mouse(this)[0]/scope.scale;
+          var y = d3.mouse(this)[1]/scope.scale;
+          scope.items.push({
+            name:'undefined',
+            category:'undefined',
+            coordinates:[{
+              x:x,
+              y:y
+            }]
+          });
           scope.$apply();
         });
     }

@@ -13,7 +13,9 @@ describe('testing /signup', function() {
   var signUpButton = element(by.id('auth-submit'));
   var usersRedirect = element(by.css('a[href$=\'\/signin\'] > div')); 
   var retailersRedirect = element(by.css('a[href$=\'\/retailer\/signin\'] > div'));
-  
+  var inputs = element.all(by.css('form > input'))
+  var messages = element(by.css('tp-sign-up > div'));
+
   describe('page & form elements: ', function(){
     it('should resolve the signup page', function() {
       browser.get('http://localhost:8080/#/signup')
@@ -23,28 +25,42 @@ describe('testing /signup', function() {
         .toBe('/signup');  
     });
 
+    it('should default to no messages from message model :', function(){
+      //pending;
+      expect(messages.getAttribute('value')).toBe(null);
+    });
+
     it('should have 5 input boxes', function(){
-      var inputs = element.all(by.css('form > input'))
       expect(inputs.count()).toBe(5);
-    })
+    });
 
     it('should have a redirect button to /signup for users and retailers', function(){
       var allRedirects = element.all(by.css('a[href$=\'\/signin\'] > div'));
-      // expect(usersRedirect.count()).toBe(1);
-      // expect(retailersRedirect.count()).toBe(1);
       expect(allRedirects.count()).toBe(2);
-    })
+    });
 
-    xit('should respond to a sign-up request, even if form is incomplete', function(){
+    it('should allow the user to enter text into forms', function(){
+      var firstEl = inputs.first();
+      var firstText = 'omfgThisismyusernameomfgomfgomfg';
+      var secondEl = inputs.get(2);
+      var secondText = 'omfgThisisNAMEomfgomfgomfgSuchExcitement1!!1';
+      firstEl.sendKeys(firstText);
+      secondEl.sendKeys(secondText);
 
-    })
+      expect(firstEl.getAttribute('value')).toBe(firstText);
+      expect(secondEl.getAttribute('value')).toBe(secondText);
+    });
+
+    it('should respond to a sign-up request, even if form is incomplete', function(){
+      signUpButton.click();
+
+      expect(messages.getAttribute('value')).not.toBe('');
+    });
   });
 
   xdescribe('testing redirects : ', function(){
 
   });
-
-
 });
 
 //default, click on login as : users, click->retailers

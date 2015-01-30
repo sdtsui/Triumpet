@@ -3,7 +3,7 @@ angular.module('tp.editor',[])
 .controller('EditorCtrl', function($scope, $stateParams, $http, Map, Item){
   angular.extend($scope,Map,Item);
   $scope.data = {};
-  // $scope.items = [];
+  $scope.items = [];
   $scope.scale = 15;
 
   $scope.updateAll = function(){
@@ -18,17 +18,31 @@ angular.module('tp.editor',[])
     $scope.data[attr].splice(index,1);
   };
 
+  $scope.render = function(){
+    Map.drawFloorPlan($scope.data.floorPlan, $scope.scale, $scope.svg);
+    Map.drawShelves($scope.data.shelves, $scope.scale, $scope.svg);
+    Item.drawItems($scope.items, $scope.scale, $scope.svg);    
+  }
+
+  $scope.scaleup = function(){
+    $scope.scale = $scope.scale + 0.1;
+    $scope.render();
+  }
+
+  $scope.scaledown = function(){
+    $scope.scale = $scope.scale - 0.1;
+    $scope.render();
+  }
+
   if($stateParams.retailer){ 
     Map.fetch($stateParams.retailer)
       .then(function(data){
         $scope.data = data;
-        Map.drawFloorPlan($scope.data.floorPlan, $scope.scale, $scope.svg);
-        Map.drawShelves($scope.data.shelves, $scope.scale, $scope.svg);
-      })
-    Item.fetchItems($stateParams.retailer)
-      .then(function(items){
-        $scope.items = items;
-        Item.drawItems($scope.items, $scope.scale, $scope.svg);
+        Item.fetchItems($stateParams.retailer)
+          .then(function(items){
+            $scope.items = items;
+            $scope.render();
+          })
       })
   }
   // $scope.device = navigator.userAgent;
@@ -45,7 +59,7 @@ angular.module('tp.editor',[])
       var width = $window.innerWidth;
       var height = $window.innerHeight;
       scope.svg = d3.select('#map-main').append('svg')
-        .attr('id','map-svg')
+        .attr('id','map-svg');
 
     }
   }
@@ -67,9 +81,9 @@ angular.module('tp.editor',[])
             x:x,
             y:y
           });
-          Map.drawFloorPlan(scope.data.floorPlan, scope.scale, scope.svg);
           scope.$apply();
-        });
+          scope.render();
+        })
     }
   }
 })
@@ -92,8 +106,8 @@ angular.module('tp.editor',[])
             width:2,
             height:6
           });
-          Map.drawShelves(scope.data.shelves, scope.scale, scope.svg);
           scope.$apply();
+          scope.render();
         });
     }
   }
@@ -119,8 +133,8 @@ angular.module('tp.editor',[])
               y:y
             }]
           });
-          Item.drawItems(scope.items, scope.scale, scope.svg);
           scope.$apply();
+          scope.render();
         });
     }
   }

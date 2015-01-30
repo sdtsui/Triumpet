@@ -65,6 +65,18 @@ svg {
   color: black;
 }
 
+#editor-scale {
+  background-color: black;
+  color: white;
+  width: 15vw;
+  font-size: 1.5vw;
+  border: none;
+}
+
+#editor-scale:focus {
+  outline: none;
+}
+
 .auth-background, .map-background {
   background: url("../assets/background.png");
   min-width: 100vw;

@@ -16,14 +16,7 @@ angular.module('tp.auth',[])
 		  	//Save token and username to localStorage when sign up is successful
 		  	$window.localStorage.setItem('retailer.triumpet.token',token);
 		  	$window.localStorage.setItem('retailer.triumpet.username',newRetailer.username);
-		  	//TODO: add location.path to direct to main page
-		  	$scope.message = 'Success';
-		  	$scope.username = '';
-		  	$scope.password = '';
-		  	$scope.name = '';
-		  	$scope.description = '';
-		  	$scope.phoneNumber = '';
-		  	$scope.address = '';
+		  	$location.path('/'+newRetailer.username+'/editor/floorplan');
 		  })
 		  .catch(function(error){
 		  	$scope.message = 'Please re-try';
@@ -102,10 +95,7 @@ angular.module('tp.auth',[])
 		  	//Save token and username to localStorage when sign up is successful
 		  	$window.localStorage.setItem('retailer.triumpet.token',token);
 		  	$window.localStorage.setItem('retailer.triumpet.username',login.username);
-		  	//TODO: add location.path to direct to main page
-				$scope.message = 'Success';
-		  	$scope.username = '';
-		  	$scope.password = '';
+		  	$location.path('/'+login.username+'/editor/floorplan');
 		  })
 		  .catch(function(error){
 		  	Auth.signout();

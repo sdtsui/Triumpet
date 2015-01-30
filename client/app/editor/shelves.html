@@ -1,18 +1,21 @@
+Scale:
+<input id='editor-scale' type='number' value='{{scale}}' ng-model='scale' ng-change='render()'></input>
+<br>
 <div ng-repeat='(index,coor) in data.shelves'>
   <span id='shelves-coor'>{{ 'X:  '}}
-    <input type='number' value='{{coor.x}}' ng-model='data.shelves[index].x' ng-change='drawShelves(data.shelves, scale, svg)'></input>
+    <input type='number' value='{{coor.x}}' ng-model='data.shelves[index].x' ng-change='render()'></input>
   </span>
   <span id='shelves-coor'>{{ 'Y:  '}}
-    <input type='number' value="{{coor.y}}" ng-model='data.shelves[index].y' ng-change='drawShelves(data.shelves, scale, svg)'></input>
+    <input type='number' value="{{coor.y}}" ng-model='data.shelves[index].y' ng-change='render()'></input>
   </span>
   <br>
   <span id='shelves-coor'>{{ 'W:  '}}
-    <input type='number' value="{{coor.width}}" ng-model='data.shelves[index].width' ng-change='drawShelves(data.shelves, scale, svg)'></input>
+    <input type='number' value="{{coor.width}}" ng-model='data.shelves[index].width' ng-change='render()'></input>
   </span>
   <span id='shelves-coor'>{{ 'H:  '}}
-    <input type='number' value="{{coor.height}}" ng-model='data.shelves[index].height' ng-change='drawShelves(data.shelves, scale, svg)'></input>
+    <input type='number' value="{{coor.height}}" ng-model='data.shelves[index].height' ng-change='render()'></input>
   </span>
-  <button href='' id='editor-delete' type='delete' ng-click='delete(index,"shelves"); drawShelves(data.shelves, scale, svg)'>X</button>
+  <button href='' id='editor-delete' type='delete' ng-click='delete(index,"shelves"); render()'>X</button>
   <br>
 </div>
 <button href='' id='editor-submit' type='submit' ng-click='updateAll()'>update</button>

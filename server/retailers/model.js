@@ -33,6 +33,7 @@ RetailersSchema.methods.comparePassword = function(signin){
   //Promisify method
   var defer = Q.defer();
   var password = this.password;
+  console.log('signin, password :', signin, password);
   bcrypt.compare(signin,password,function(err,isMatch){
     if(err){
       defer.reject(err);

@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
+var shell = require('gulp-shell');
 
 gulp.task('lint', function() {
   return gulp.src([
@@ -15,3 +16,11 @@ gulp.task('lint', function() {
 gulp.task('default', ['lint'], function () {
     console.log('Linted.');
 });
+
+gulp.task('test', shell.task([
+  'mocha -R spec --recursive'
+]));
+
+gulp.task('serve', shell.task([
+    'nodemon server.js'
+]));

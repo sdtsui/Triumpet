@@ -1,0 +1,15 @@
+<div class='main-background'>
+	<img id='main-logo' src='./assets/Triumpet-logo.png'></img>
+	<br>
+	<input id='main-search' type='text' placeholder='Search (e.g: Walmart, Target, etc..)' ng-model='query'></input>
+	<br>
+	<div ng-repeat='retailer in data | filter: query'>
+		<div id='main-result'>
+			<p id='main-name'>{{retailer.name}}</p>
+			<p id='main-description'>{{retailer.description}}</p>
+			<p id='main-phoneNumber'>{{retailer.phoneNumber}}</p>
+			<p id='main-address'>{{retailer.address}}</p>
+		</div>
+	</div>
+	<button type='submit' id='main-submit' ng-click='fetchAll()'>Search</button>
+</div>

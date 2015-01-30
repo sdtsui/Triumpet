@@ -20,6 +20,15 @@ svg {
   margin: 5px;
 }
 
+#main-result {
+  width: 80vmin;
+  height: auto;
+  background-color: white;
+  margin: 0 auto 0 auto;
+  padding: 5vw;
+  box-shadow: -3px 0 0 gray;
+}
+
 #editor-main {
   width: 92vw;
   min-height: 80vh;
@@ -65,6 +74,16 @@ svg {
   color: black;
 }
 
+#main-search, #main-search:focus {
+  width: 80vmin;
+  height: 5vmin;
+  font-size: 4vmin;
+  padding: 4vmin;
+  color: black;
+  outline: none;
+  margin-bottom: 2vh;
+}
+
 #editor-scale {
   background-color: black;
   color: white;
@@ -77,7 +96,7 @@ svg {
   outline: none;
 }
 
-.auth-background, .map-background {
+.auth-background, .map-background, .main-background {
   background: url("../assets/background.png");
   min-width: 100vw;
   min-height: 100vh;
@@ -86,11 +105,11 @@ svg {
   background-position: center;
 }
 
-.auth-background {
+.auth-background, .main-background{
   text-align: center;
 }
 
-#auth-logo {
+#auth-logo, #main-logo {
   width: 75vmin;
 }
 
@@ -110,7 +129,7 @@ svg {
   padding-left: 10px;
 }
 
-#auth-submit, #auth-redirect, #editor-submit {
+#auth-submit, #auth-redirect, #editor-submit, #main-submit {
   border: none;
   padding: 10px;
   width: 100px;
@@ -150,7 +169,7 @@ svg {
   color: black ;
 }
 
-#auth-submit:hover, #auth-redirect:hover, #editor-submit:hover {
+#auth-submit:hover, #auth-redirect:hover, #editor-submit:hover, #main-submit:hover {
   background-color: rgb(0, 169, 255);
 }
 

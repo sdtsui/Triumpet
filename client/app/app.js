@@ -5,6 +5,7 @@ angular.module('triumpet', [
   'tp.auth',
   'tp.editor',
   'tp.map',
+  'tp.main',
   'ui.router'
 ])
 
@@ -55,10 +56,11 @@ angular.module('triumpet', [
       template    : '<tp-items></tp-items>',
       controller  : 'EditorCtrl',
       retailerAuth: true
-    })    .state('home',{
-      url         : '/',
-      templateUrl : "",
-      controller  : ""
+    })    
+    .state('main',{
+      url         : '',
+      template    : "<tp-main></tp-main>",
+      controller  : "MainCtrl"
     });
     $httpProvider.interceptors.push('AttachTokens');
 })

@@ -10,6 +10,10 @@ angular.module('tp.editor',[])
     Map.update($scope.data.username, $scope.data);
   };
 
+  $scope.updateAllItems = function(){
+    Item.update($scope.data.username, $scope.items);
+  };
+
   $scope.delete = function(index, attr){
     $scope.data[attr].splice(index,1);
   };
@@ -24,6 +28,7 @@ angular.module('tp.editor',[])
     Item.fetchItems($stateParams.retailer)
       .then(function(items){
         $scope.items = items;
+        Item.drawItems($scope.items, $scope.scale, $scope.svg);
       })
   }
   // $scope.device = navigator.userAgent;
@@ -95,7 +100,7 @@ angular.module('tp.editor',[])
 })
 
 //Items
-.directive('tpItems',function($window, Map){
+.directive('tpItems',function($window, Item){
   return {
     restrict: 'EA',
     scope: false,
@@ -107,13 +112,14 @@ angular.module('tp.editor',[])
           var x = d3.mouse(this)[0]/scope.scale;
           var y = d3.mouse(this)[1]/scope.scale;
           scope.items.push({
-            name:'undefined',
-            category:'undefined',
+            name: null,
+            category:null,
             coordinates:[{
               x:x,
               y:y
             }]
           });
+          Item.drawItems(scope.items, scope.scale, scope.svg);
           scope.$apply();
         });
     }

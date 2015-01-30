@@ -24,11 +24,6 @@ var demoRetailer = {
 };
 
 $.ajax({
-	url:'http://localhost:8080/api/retailers/abcstore1',
-	type:'DELETE'
-})
-
-$.ajax({
 	url:'http://localhost:8080/api/retailers/signup',
 	type:'POST',
 	data:demoRetailer

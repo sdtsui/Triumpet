@@ -48,9 +48,9 @@ angular.module('tp.factories',[])
   // draw shelves on svg specified as one of the inputs
   map.drawShelves = function(shelves, scale, svg){
   	svg.selectAll('rect').remove();
-    var fp = svg.selectAll('rect').data(shelves);
-    fp.enter().append('rect');
-    fp.attr('x', function(d){return d.x*scale})
+    var sh = svg.selectAll('rect').data(shelves);
+    sh.enter().append('rect');
+    sh.attr('x', function(d){return d.x*scale})
 	    .attr('y', function(d){return d.y*scale})
 	    .attr('width', function(d){return d.width*scale})
 	    .attr('height', function(d){return d.height*scale})
@@ -64,6 +64,25 @@ angular.module('tp.factories',[])
 .factory('Item',function($http){
 	var item = {};
 
+	//Update item on retailers
+	item.update = function(username,data){
+		data.forEach(function(item){
+			$http({
+				method: 'PUT',
+      	url: '/api/items/'+username+'/'+item.name,
+      	data: item
+			})
+			.catch(function(){
+				$http({
+					method: 'PUT',
+	      	url: '/api/items/'+username,
+	      	data: item
+				})
+			});
+		});
+	};
+
+	//Fetch all items from a retailer
 	item.fetchItems = function(username){
 		return $http({
       method: 'GET',
@@ -72,7 +91,34 @@ angular.module('tp.factories',[])
     .then(function(item){
       return item.data;
     });
+	};
+
+	//turn items into an array of coordinates
+	item.flattenItemsCoor = function(items){
+		var result = [];
+		items.forEach(function(item){
+			item.coordinates.forEach(function(coor){
+				result.push({
+					x:coor.x,
+					y:coor.y,
+					name:item.name,
+					category:item.category
+				});
+			});
+		});
+		return result;
 	}
+
+	// draw items on svg specified as one of the inputs
+  item.drawItems = function(items, scale, svg){
+  	svg.selectAll('circle').remove();
+    var itm = svg.selectAll('circle').data(item.flattenItemsCoor(items));
+    itm.enter().append('circle');
+    itm.attr('cx',function(d){return d.x*scale})
+    	 .attr('cy',function(d){return d.y*scale})
+    	 .attr('r',function(){return 0.5*scale})
+    	 .attr('fill','red');
+  };
 
 	return item;
 })

@@ -24,9 +24,26 @@ svg {
   width: 80vmin;
   height: auto;
   background-color: white;
-  margin: 0 auto 0 auto;
-  padding: 5vw;
+  margin: 0 auto 1px auto;
+  padding: 3vmin;
   box-shadow: -3px 0 0 gray;
+  text-align: left;
+}
+
+#main-result:hover {
+  box-shadow: -3px 0 0 rgb(0, 119, 255);
+}
+
+#main-name {
+  font-weight: bold;
+}
+
+#main-description {
+  font-style: italic;
+}
+
+#main-phoneNumber, #main-address {
+  font-size: 12px;
 }
 
 #editor-main {
@@ -84,6 +101,11 @@ svg {
   margin-bottom: 2vh;
 }
 
+#main-nav {
+  position: absolute;
+  right: 0;
+}
+
 #editor-scale {
   background-color: black;
   color: white;
@@ -129,7 +151,7 @@ svg {
   padding-left: 10px;
 }
 
-#auth-submit, #auth-redirect, #editor-submit, #main-submit {
+#auth-submit, #auth-redirect, #editor-submit, #main-submit, #main-redirect {
   border: none;
   padding: 10px;
   width: 100px;
@@ -140,12 +162,27 @@ svg {
   display: inline-block;
 }
 
-#auth-redirect {
+#auth-redirect, #main-redirect {
   font-size: 10px;
   padding: 5px;
   width: 75px;
   margin: 0px;
 }
+
+#main-redirect {
+  float: right;
+  margin-left: 2px;
+  background-color: white;
+  color: black;
+  opacity: 0.25; 
+  text-align: center;       
+}
+
+#main-redirect:hover {
+  background-color: rgb(0, 119, 255);
+  opacity: 0.75;    
+}
+
 
 #editor-submit {
   font-size: 10px;

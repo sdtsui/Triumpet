@@ -1,6 +1,6 @@
 angular.module('tp.editor',[])
 
-.controller('EditorCtrl', function($scope, $stateParams, $http, Map, Item){
+.controller('EditorCtrl', function($scope, $stateParams, $http, Map, Item, Auth){
   angular.extend($scope,Map,Item);
   $scope.data = {};
   $scope.items = [];
@@ -9,6 +9,10 @@ angular.module('tp.editor',[])
   $scope.updateAll = function(){
     Map.update($scope.data.username, $scope.data);
   };
+
+  $scope.signout = function(){
+    Auth.signout();
+  }
 
   $scope.updateAllItems = function(){
     Item.update($scope.data.username, $scope.items);
@@ -23,17 +27,7 @@ angular.module('tp.editor',[])
     Map.drawShelves($scope.data.shelves, $scope.scale, $scope.svg);
     Item.drawItems($scope.items, $scope.scale, $scope.svg);    
   }
-
-  $scope.scaleup = function(){
-    $scope.scale = $scope.scale + 0.1;
-    $scope.render();
-  }
-
-  $scope.scaledown = function(){
-    $scope.scale = $scope.scale - 0.1;
-    $scope.render();
-  }
-
+  
   if($stateParams.retailer){ 
     Map.fetch($stateParams.retailer)
       .then(function(data){

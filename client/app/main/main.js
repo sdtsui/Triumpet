@@ -2,6 +2,8 @@ angular.module('tp.main',[])
 
 .controller('MainCtrl', function($scope, $stateParams, $http){
 	$scope.data = [];
+
+	//fetch all retailers data
 	$scope.fetchAll = function(){
 		$http({
 			method: 'GET',

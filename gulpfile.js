@@ -27,3 +27,12 @@ gulp.task('test', shell.task([
 gulp.task('serve', shell.task([
     'nodemon server.js'
 ]));
+
+gulp.task('present', 
+  shell.task([
+    ]));
+
+gulp.task('protract', 
+  shell.task([
+    'webdriver-manager start'
+    ]));

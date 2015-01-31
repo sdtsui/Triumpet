@@ -127,6 +127,28 @@ h6 {
     background-size: cover;
 }
 
+#tech-stacks {
+    width: 100%;
+}
+
+#tech-stack {
+    height: 100%;    
+}
+
+#tech-stack-container {
+    background-color: white;
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    height: 10vh;
+    margin: 5px;
+    padding: 5px;
+}
+
+#tech-stack-container:hover {
+    box-shadow: 0 0 4px rgb(0, 119, 255);
+}
+
 .banner h2 {
     margin: 0;
     text-shadow: 2px 2px 3px rgba(0,0,0,0.6);

@@ -18,7 +18,10 @@ gulp.task('default', ['lint'], function () {
 });
 
 gulp.task('test', shell.task([
-  'mocha -R spec --recursive'
+  'mocha -R spec $(find test/e2e/userTestSpec.js)',
+  'mocha -R spec $(find test/e2e/retailerTestSpec.js)',
+  'mocha -R spec $(find test/e2e/itemTestSpec.js)',
+  'mocha -R spec $(find test/unit/db/dbSpec.js)'
 ]));
 
 gulp.task('serve', shell.task([

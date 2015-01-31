@@ -1,4 +1,4 @@
-# Server API Documentation #
+#Triumpet Server API Documentation #
 
 ## /api/retailers ##
 

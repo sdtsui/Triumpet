@@ -11,7 +11,7 @@
 
 describe('testing /signup', function() {
   var signUpButton = element(by.id('auth-submit'));
-  var usersRedirect = element(by.css('a[href$=\'\/signin\'] > div')); 
+  var usersRedirect = element.all(by.css('a[href$=\'\/signin\'] > div')).first(); 
   var retailersRedirect = element(by.css('a[href$=\'\/retailer\/signin\'] > div'));
   var inputs = element.all(by.css('form > input'))
   var messages = element(by.css('tp-sign-up > div'));
@@ -58,7 +58,18 @@ describe('testing /signup', function() {
     });
   });
 
-  xdescribe('testing redirects : ', function(){
+  describe('testing redirects : ', function(){
+    it('should redirect to /signin when \'users\' button clicked', function(){
+      usersRedirect.click();
+      expect(browser.getLocationAbsUrl())
+      .toBe('/signin');
+    });
+
+    it('should redirect to /retailers/signin when \'Retailers\' button clicked', function(){
+      retailersRedirect.click();
+      expect(browser.getLocationAbsUrl())
+      .toBe('/retailer/signin');
+    });
 
   });
 });

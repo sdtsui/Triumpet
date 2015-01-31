@@ -1,4 +1,7 @@
 <div class='map-background'>
+	<div id='main-nav'>
+		<a href='/'><div id='main-redirect' ng-click='signout()'>Log Out</div></a>
+	</div>
   <div id='editor-main'>
     <div id='editor-control' ng-controller='EditorCtrl'>
       <a href='{{ "#/"+data.username+"/editor/floorplan" }}'><div id='editor-redirect'>Floor Plan</div></a>
@@ -8,5 +11,6 @@
 
     </div>
     <div id='map-main'></div>
+
   </div>
 </div>

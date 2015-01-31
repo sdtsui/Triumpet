@@ -20,6 +20,32 @@ svg {
   margin: 5px;
 }
 
+#main-result {
+  width: 80vmin;
+  height: auto;
+  background-color: white;
+  margin: 0 auto 1px auto;
+  padding: 3vmin;
+  box-shadow: -3px 0 0 gray;
+  text-align: left;
+}
+
+#main-result:hover {
+  box-shadow: -3px 0 0 rgb(0, 119, 255);
+}
+
+#main-name {
+  font-weight: bold;
+}
+
+#main-description {
+  font-style: italic;
+}
+
+#main-phoneNumber, #main-address {
+  font-size: 12px;
+}
+
 #editor-main {
   width: 92vw;
   min-height: 80vh;
@@ -65,7 +91,34 @@ svg {
   color: black;
 }
 
-.auth-background, .map-background {
+#main-search, #main-search:focus {
+  width: 80vmin;
+  height: 5vmin;
+  font-size: 4vmin;
+  padding: 4vmin;
+  color: black;
+  outline: none;
+  margin-bottom: 2vh;
+}
+
+#main-nav {
+  position: absolute;
+  right: 0;
+}
+
+#editor-scale {
+  background-color: black;
+  color: white;
+  width: 15vw;
+  font-size: 1.5vw;
+  border: none;
+}
+
+#editor-scale:focus {
+  outline: none;
+}
+
+.auth-background, .map-background, .main-background {
   background: url("../assets/background.png");
   min-width: 100vw;
   min-height: 100vh;
@@ -74,11 +127,11 @@ svg {
   background-position: center;
 }
 
-.auth-background {
+.auth-background, .main-background{
   text-align: center;
 }
 
-#auth-logo {
+#auth-logo, #main-logo {
   width: 75vmin;
 }
 
@@ -98,7 +151,7 @@ svg {
   padding-left: 10px;
 }
 
-#auth-submit, #auth-redirect, #editor-submit {
+#auth-submit, #auth-redirect, #editor-submit, #main-submit, #main-redirect {
   border: none;
   padding: 10px;
   width: 100px;
@@ -109,12 +162,27 @@ svg {
   display: inline-block;
 }
 
-#auth-redirect {
+#auth-redirect, #main-redirect {
   font-size: 10px;
   padding: 5px;
   width: 75px;
   margin: 0px;
 }
+
+#main-redirect {
+  float: right;
+  margin-left: 2px;
+  background-color: white;
+  color: black;
+  opacity: 0.25; 
+  text-align: center;       
+}
+
+#main-redirect:hover {
+  background-color: rgb(0, 119, 255);
+  opacity: 0.75;    
+}
+
 
 #editor-submit {
   font-size: 10px;
@@ -138,7 +206,7 @@ svg {
   color: black ;
 }
 
-#auth-submit:hover, #auth-redirect:hover, #editor-submit:hover {
+#auth-submit:hover, #auth-redirect:hover, #editor-submit:hover, #main-submit:hover {
   background-color: rgb(0, 169, 255);
 }
 

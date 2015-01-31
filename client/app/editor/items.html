@@ -1,3 +1,5 @@
+Scale:
+<input id='editor-scale' type='number' value='{{scale}}' ng-model='scale' ng-change='render()'></input>
 <div ng-repeat='(index,item) in items'>
   <span id='items-attr'>{{ 'Name:  '}}
     <input type='text' value='{{item.name}}' ng-model='items[index].name'></input>
@@ -9,10 +11,10 @@
   <br>
 	<div ng-repeat='(i,coor) in item.coordinates'>
 	  <span id='items-attr'>{{ 'X:  '}}
-	    <input type='number' value='{{coor.x}}' ng-model='items[index].coordinates[i].x' ng-change='drawItems(items, scale, svg)'></input>
+	    <input type='number' value='{{coor.x}}' ng-model='items[index].coordinates[i].x' ng-change='render()'></input>
 	  </span>
 	  <span id='items-attr'>{{ 'Y:  '}}
-	    <input type='number' value='{{coor.y}}' ng-model='items[index].coordinates[i].y' ng-change='drawItems(items, scale, svg)'></input>
+	    <input type='number' value='{{coor.y}}' ng-model='items[index].coordinates[i].y' ng-change='render()'></input>
 	  </span>
 	</div>
   <br>

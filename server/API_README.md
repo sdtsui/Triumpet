@@ -1,66 +1,57 @@
-# API Documentation #
+# Server API Documentation #
 
 ## /api/retailers ##
----  Post Request (/api/retailers/signup) ---
-> Expect username(required, unique, lowercase), password(required), name, description, phoneNumber, address, floorPlan, shelves
-> floorPlan expects array of {x:Number, y:Number}
-> shelves expects array of {x:Number, y:Number, width: Number, height: Number}
-> return token
 
---- Post Request (/api/retailers/signin) ---
-> Expect username, password
-> return token
-> return error is failed
+---  POST to */api/retailers/signup* ---
+> Retailer schema inputs: username(required, unique, lowercase), password(required), name, description, phoneNumber, address, floorPlan, and shelves  
+> floorPlan schema input:  an array of objects: {x:Number, y:Number}  
+> shelves schema input: an array of objects: {x:Number, y:Number, width: Number, height: Number}  
+> On success: returns a token
 
---- Get Request ---
-> Return array of all retailers (password excluded)
+--- POST to */api/retailers/signin* ---
+> Inputs: username, password  
+> On success: returns a token
 
---- Get Request (/api/retailers/:username)---
-> Return one retailer (password excluded)
+--- GET to */api/retailers/*---
+> Inputs: none  
+> On success: returns an array containing all retailers (password excluded)
 
---- Put Request ---
-> Expect retailer's username as a URL params (/api/retailers/:username)
-> Update existing data for a specific retailer
+--- GET to single retailer, at */api/retailers/:username*---
+> Inputs: username as a URL parameter
+> On success: Returns a single retailer, with specified username (password excluded)
 
---- Delete Request ---
-> Expect retailer's username as a URL params (/api/retailers/:username)
-> Remove a specific retailer form database (non-reversible)
-
+--- PUT/DELETE ---
+> Inputs: retailer's username as a URL parameter. ie, */api/retailers/:username*
+> On success: Modifies or removes specified retailer
 
 ## /api/items/:retailer ##
-> all requests expect retailer's username as a URL params
+>Items must be associated with a retailer.
+> These requests require a specific retailer in a URL parameter.
 
----  Post Request  ---
-> Expect name, category, coordinates
-> coordinates expect an array of {x:Number, y:Number}
+---  POST ---
+> Item schema inputs: name, category, coordinates
+> coordinates are an array of objects: {x:Number, y:Number}
 
---- Get Request ---
-> Return array of all items from a specific retailer
+--- GET ---
+> On success: Returns array of all items from a specific retailer
 
---- Put Request ---
-> Expect item's name as a URL params (/api/retailers/:username/:itemName)
-> Update existing data for a specific item
-
---- Delete Request ---
-> Expect item's name as a URL params (/api/retailers/:username/:itemName)
-> Remove a specific item
-
+--- PUT/DELETE ---
+> Inputs: item's name as a URL parameter */api/retailers/:username/:itemName*
+> On success: Modifies or removes specified item
 
 ## /api/users ##
 
---- Post Request (/api/users/signup) ---
-> Expect username, password, firstName, lastName, email
-> return token
+--- POST to signup */api/users/signup* ---
+> User schema inputs: (all required): username, password, firstName, lastName, email
+> On success: returns a token
 
---- Post Request (/api/users/signin) ---
-> Expect username, password
-> return token
-> return error is failed
+--- POST to signin */api/users/signin* ---
+> Inputs (all required): username, password
+> On success: returns a token
 
---- Put Request ---
-> Expect item's name as a URL params (/api/retailers/:username/:itemName)
-> Update existing data for a specific item
+--- PUT ---
+> Not used
 
---- Delete Request ---
-> Expect item's name as a URL params (/api/retailers/:username/:itemName)
-> Remove a specific item
+--- DELETE ---
+> Inputs: username as a URL parameter */api/retailers/:username*
+> On success: Removes a user

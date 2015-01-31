@@ -136,7 +136,7 @@ describe('retailer AJAX testing : ', function(){
     })
     it('should return all retailers, after insertion of a new one', function(done){
       retailer.read(function(e, res){
-        expect(res.body.length).to.equal(2);
+        expect(res.body.length).to.equal(3);//there is also a default retailer jacky created, in addition to 2 test users
         done();
       })
     });

@@ -1,60 +1,48 @@
 # Triumpet
 
-> Triumpet is an indoor positioning application that allows you to find physical objects in your immediate proximity. Search for objects that you are interested in finding nearby and Triumpet will navigate you to it's location. You will no longer have to ask what aisle the mayonnaise is on!
-
-## Team
-
-  - __Product Owner__: Jacky Chan
-  - __Scrum Master__: Daniel Tsui
-  - __Development Team Members__: Devin Otway
-
-## Table of Contents
-
-1. [Usage](#Usage)
-1. [Requirements](#requirements)
-1. [Development](#development)
-    1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
-    1. [Roadmap](#roadmap)
-1. [Team](#team)
-1. [Future Developments](#future-developments)
-1. [Contributing](#contributing)
+> Triumpet helps shoppers find items. Search for objects that you are interested in finding nearby and Triumpet will show you where it is. You will no longer have to ask what aisle the mayonnaise is on!
 
 ## Usage
 
-> Some usage instructions
+###Map Editor (for retailers)###
+> Log in from the retailer [sign-in page](http://triumpet.herokuapp.com/#/retailer/signin)  
+```username: abcstore1```  
+```password: abcstore1```  
+>Click to outline your map's verticies, place shelves, and place items.
+>When done, click "update".  
+>If you make a mistake, prevent saving by clicking on the next tab (eg, "Shelves"), and returning to "Floor Plan".
 
-## Requirements
-
-- Node (Version?)
-- Express (Version?)
-- Angular (Version?)
-- MongoDB
-- Leaflets(??)
+###Store Search (for users)###
+>Load the [frontpage](http://triumpet.herokuapp.com/)  
+```username: ```
+```password: ```
+>Search for a store.  
+>Search for an item.
 
 ## Development
 
 ### Installing Dependencies
-
-From within the root directory:
+>From within the root directory:
 
 ```sh
-sudo npm install -g bower
 npm install
-bower install
+gulp serve
 ```
-
-### Tasks
+### Testing
+```sh
+webdriver-manager start
+gulp test
+```
 
 ### Roadmap
 
 View the project roadmap [here](https://github.com/JollyPhantom/Triumpet/issues)
 
-## Team
-- [Jackie Chan](https://github.com/chikeichan)
-- [Devin Otway](https://github.com/TroutZen)
-- [Daniel Tsui](https://github.com/sdtsui)
-
-## Contributing
+### Contributing
 
 See [CONTRIBUTING.md](https://github.com/JollyPhantom/Triumpet/blob/master/CONTRIBUTING.md) for contribution guidelines.
+
+## Dev Team
+- [Jacky Chan](https://github.com/chikeichan)
+- [Devin Otway](https://github.com/TroutZen)
+- [Daniel Tsui](https://github.com/sdtsui)

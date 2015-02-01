@@ -127,12 +127,27 @@ h6 {
     background-size: cover;
 }
 
-#tech-stacks {
+#tech-stacks, #dev-cards {
     width: 100%;
 }
 
 #tech-stack {
     height: 100%;    
+}
+
+#dev-card {
+    width: 30%;
+    height: auto;
+    display: inline-block;
+    text-align: center;
+    margin: 1vw;
+    padding: 1vw;
+}
+
+#dev-pic {
+    width: 100%;
+    border-radius: 2000px;
+    border-radius: 2px solid black;
 }
 
 #tech-stack-container {

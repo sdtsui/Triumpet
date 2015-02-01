@@ -1,5 +1,9 @@
-# Triumpet
 
+# <img src='./client/assets/Triumpet-logo.png'></img>
+<a href='http://triumpet.herokuapp.com/project'>Visit Project Page</a>
+<span> | </spam>
+<a href='http://triumpet.herokuapp.com'>Visit Demo Page</a>
+<br>
 > Triumpet helps shoppers find items. Search for objects that you are interested in finding nearby and Triumpet will show you where it is. You will no longer have to ask what aisle the mayonnaise is on!
 
 ## Usage
@@ -49,8 +53,8 @@ See [CONTRIBUTING.md](https://github.com/JollyPhantom/Triumpet/blob/master/CONTR
 
 ### Supplemental Documentation
 
-[Server API](https://github.com/JollyPhantom/Triumpet/blob/master/server/API_README.md)  
-[Triumpet Client](https://github.com/JollyPhantom/Triumpet/blob/master/client/CLIENT_README.MD)
+[Triumpet Server API](https://github.com/JollyPhantom/Triumpet/blob/master/server/API_README.md)  
+[Triumpet Client API](https://github.com/JollyPhantom/Triumpet/blob/master/client/CLIENT_README.MD)
 
 ## Dev Team
 - [Jacky Chan](https://github.com/chikeichan)

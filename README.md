@@ -26,10 +26,12 @@
 
 ```sh
 npm install
+mongod
 gulp serve
 ```
 ### Testing
 ```sh
+mongod
 webdriver-manager start
 gulp test
 ```

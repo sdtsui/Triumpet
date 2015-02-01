@@ -11,13 +11,15 @@
 >Click to outline your map's verticies, place shelves, and place items.
 >When done, click "update".  
 >If you make a mistake, prevent saving by clicking on the next tab (eg, "Shelves"), and returning to "Floor Plan".
-![alt text][logo]
-[logo]: http://i.gyazo.com/88f0cf1590c828d3aad41f7fd88b15c5.gif "Logo Title Text 2"
+
+![alt text](http://i.gyazo.com/88f0cf1590c828d3aad41f7fd88b15c5.gif "Logo Title Text 1")
 
 ###Store Search (for users)###
->Load the [frontpage](http://triumpet.herokuapp.com/)  
+>Load the [frontpage](http://triumpet.herokuapp.com/).  
 >Search for a store.  
 >Search for an item.
+
+![alt text](http://i.gyazo.com/b3344438d0e0ef7bc9f70d2ffd8c7a2d.gif "Logo Title Text 2")
 
 ## Development
 
@@ -37,7 +39,6 @@ mongod
 webdriver-manager start
 gulp test
 ```
-
 ### Roadmap
 
 View the project roadmap [here](https://github.com/JollyPhantom/Triumpet/issues)

@@ -10,38 +10,11 @@ angular.module('tp.map',[])
   $scope.selectedItem = '';
   $scope.floorPlan;
 
-  // fetches items from database
-  // [refactor] this will need to be moved to a factory and imported into the controller
-  // $scope.getItems = function(retailer){
-  //   $http.get('/api/items/' + retailer). // this will need to be updated to whatever the actual retailer is...
-  //     success(function(items){
-  //       $scope.items = items;
-  //     }).
-  //     error(function(){
-  //       console.error('[getItems]: could not get items for ' + retailer);
-  //     });
-  // };
-  $scope.drawItem = function(d){
-    $scope.drawItems([$scope.selectedItem],$scope.scale, $scope.svg, false);
-  }
-
-  // [refactor] this will need to be moved to a factory and imported into the controller
-  $scope.getMap = function(retailer){
-    $http.get('/api/retailers/' + retailer).
-      success(function(data){
-        $scope.floorPlan = data.floorPlan; // [refactor] we don't actually need to store the floor plan data, we can just render...
-        console.log('retailer data: ', data);
-      }).
-      error(function(){
-        console.error('[getMap]: could not get map for retailer - ' + retailer);
-      });
-  };
-
+  //Initialize Map
   if ($stateParams.retailer) {
     var retailer = $stateParams.retailer;
     Map.fetch($stateParams.retailer)
       .then(function(data){
-        console.log('retailer data', data);
         $scope.data = data;
         Map.drawFloorPlan($scope.data.floorPlan, $scope.scale, $scope.svg);
         Map.drawShelves($scope.data.shelves, $scope.scale, $scope.svg);
@@ -49,7 +22,6 @@ angular.module('tp.map',[])
     Item.fetchItems($stateParams.retailer)
       .then(function(items){
         $scope.items = items;
-        console.log(items);
       })
   }
 })
@@ -115,7 +87,7 @@ angular.module('tp.map',[])
   return {
     restrict: 'AE',
     link: linker,
-    templateUrl: '../app/map/map.html', // not sure if this is the correct relative path? (don't understand why we are going up a level?)
+    templateUrl: '../app/map/map.html',
     scope: false,
     replace: true
   };

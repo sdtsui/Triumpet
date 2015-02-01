@@ -31,6 +31,8 @@ gulp serve
 ```
 ### Testing
 ```sh
+npm install
+gulp serve
 mongod
 webdriver-manager start
 gulp test

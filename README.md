@@ -11,6 +11,8 @@
 >Click to outline your map's verticies, place shelves, and place items.
 >When done, click "update".  
 >If you make a mistake, prevent saving by clicking on the next tab (eg, "Shelves"), and returning to "Floor Plan".
+![alt text][logo]
+[logo]: http://i.gyazo.com/88f0cf1590c828d3aad41f7fd88b15c5.gif "Logo Title Text 2"
 
 ###Store Search (for users)###
 >Load the [frontpage](http://triumpet.herokuapp.com/)  

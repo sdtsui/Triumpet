@@ -42,6 +42,11 @@ View the project roadmap [here](https://github.com/JollyPhantom/Triumpet/issues)
 
 See [CONTRIBUTING.md](https://github.com/JollyPhantom/Triumpet/blob/master/CONTRIBUTING.md) for contribution guidelines.
 
+### Supplemental Documentation
+
+Server API
+Triumpet Client
+
 ## Dev Team
 - [Jacky Chan](https://github.com/chikeichan)
 - [Devin Otway](https://github.com/TroutZen)

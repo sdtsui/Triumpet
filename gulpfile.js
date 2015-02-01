@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var shell = require('gulp-shell');
+var exec = require('child_process').exec;
 
 gulp.task('lint', function() {
   return gulp.src([
@@ -14,13 +15,19 @@ gulp.task('lint', function() {
 });
 
 gulp.task('default', ['lint'], function () {
-    console.log('Linted.');
 });
-
-gulp.task('test', shell.task([
-  'mocha -R spec --recursive'
-]));
 
 gulp.task('serve', shell.task([
     'nodemon server.js'
+]));
+
+//requires:
+//  -server
+//  -selenium
+gulp.task('test', shell.task([
+  'mocha -R spec $(find test/e2e/userTestSpec.js)',
+  'mocha -R spec $(find test/e2e/retailerTestSpec.js)',
+  'mocha -R spec $(find test/e2e/itemTestSpec.js)',
+  'mocha -R spec $(find test/unit/db/dbSpec.js)',
+  'protractor conf.js'
 ]));

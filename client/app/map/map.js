@@ -16,13 +16,17 @@ angular.module('tp.map',[])
     Map.fetch($stateParams.retailer)
       .then(function(data){
         $scope.data = data;
-        Map.drawFloorPlan($scope.data.floorPlan, $scope.scale, $scope.svg);
-        Map.drawShelves($scope.data.shelves, $scope.scale, $scope.svg);
+        Item.fetchItems($stateParams.retailer)
+          .then(function(items){
+            $scope.items = items;
+            $scope.render();
+          })
       })
-    Item.fetchItems($stateParams.retailer)
-      .then(function(items){
-        $scope.items = items;
-      })
+  }
+
+  $scope.render = function(){
+    Map.drawFloorPlan($scope.data.floorPlan, $scope.scale, $scope.svg);
+    Map.drawShelves($scope.data.shelves, $scope.scale, $scope.svg);
   }
 })
 
@@ -78,6 +82,7 @@ angular.module('tp.map',[])
         .attr('cx', function(d){return d.x})
         .attr('cy', function(d){return d.y})
         .attr('class', 'user')
+        .attr('fill','rgb(0, 119, 255)')
         .call(drag);
 
       updateUserLoc(p);

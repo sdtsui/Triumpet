@@ -19,7 +19,6 @@ controller.create = function(req,res,next){
   var username = req.params.retailer;
   findOneRetailer({username:username})
     .then(function(retailer){
-      console.log('inside .then; retailer :', retailer);
       if(!retailer){
         next(new Error('Retailer doesn\'t exist'));
       } else {
@@ -65,7 +64,7 @@ controller.update = function(req,res,next){
       if(!retailer){
         next(new Error('Retailer doesn\'t exist'));
       } else {
-        findOneItem({retailer_id: retailer._id, name: itemName})
+        findOneItem({retailer_id: retailer._id, _id: req.body._id})
           .then(function(item){
             if(!item){
               next (new Error('Item doesn\'t exit'))

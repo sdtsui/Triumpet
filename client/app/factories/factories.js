@@ -74,7 +74,7 @@ angular.module('tp.factories',[])
 			})
 			.catch(function(){
 				$http({
-					method: 'PUT',
+					method: 'POST',
 	      	url: '/api/items/'+username,
 	      	data: item
 				})

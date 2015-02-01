@@ -6,11 +6,11 @@ body {
   font-family: Verdana;
 }
 
-.img-circle {
-  height: 50px;
-  width: 50px;
-  background-color: blue;
-  margin: 5px;
+.form-group {
+  margin: 2vh 10% 0 10%;
+  width: 80%;
+  position: fixed;
+  z-index: 2;
 }
 
 #main-link {
@@ -71,15 +71,16 @@ body {
   float: right;
 }
 
+#map-svg {
+  opacity: 0.9;
+}
+
 #user-map {
-  border: none;
   background-color: black;
-  opacity: 1;
-/*  width: 100vw;
-  height: 100vh;*/
-  position: relative;
-  display: inline-block;  
-  margin: 0;
+  opacity: 0.95;
+  min-width: 250vw;
+  min-height: 250vh;
+  padding: 50vmin;
 }
 
 .map-container {
@@ -124,6 +125,14 @@ body {
 #main-nav {
   position: absolute;
   right: 0;
+}
+
+polygon {
+  fill: rgb(354, 211, 255);
+}
+
+rect {
+  fill: rgb(147, 74, 129);
 }
 
 #editor-scale {
@@ -235,9 +244,4 @@ body {
   height: 20px;
   font-size: 20px;
   margin: 5px;
-}
-
-.form-inline {
-  margin: 5% 5% 50px 5%;
-  text-align: center;
 }

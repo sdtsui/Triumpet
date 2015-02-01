@@ -8,12 +8,14 @@
 	<input id='main-search' type='text' placeholder='Search (e.g: Walmart, Target, etc..)' ng-model='query'></input>
 	<br>
 	<div ng-repeat='retailer in data | filter: query'>
-		<div id='main-result'>
-			<span id='main-name'>{{retailer.name}}</span><br>
-			<span id='main-description'>{{retailer.description}}</span><br>
-			<span id='main-phoneNumber'>{{retailer.phoneNumber}}</span><br>
-			<span id='main-address'>{{retailer.address}}</span>
-		</div>
+		<a id='main-link' href='{{"#/map/"+retailer.username}}'>
+			<div id='main-result'>
+				<span id='main-name'>{{retailer.name}}</span><br>
+				<span id='main-description'>{{retailer.description}}</span><br>
+				<span id='main-phoneNumber'>{{retailer.phoneNumber}}</span><br>
+				<span id='main-address'>{{retailer.address}}</span>
+			</div>
+		</a>
 	</div>
 	<button type='submit' id='main-submit' ng-click='fetchAll()'>Search</button>
 </div>

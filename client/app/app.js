@@ -48,11 +48,6 @@ angular.module('triumpet', [
       controller  : 'EditorCtrl',
       retailerAuth: true // [Q][Devin] What is this doing??
     })
-    .state('map', {
-      url: '/map/:retailer',
-      template: '<tp-map></tp-map>',
-      controller: 'MapCtrl'
-    })
     .state('editor.shelves',{
       url         : '/:retailer/editor/shelves',
       template    : '<tp-shelves></tp-shelves>',
@@ -65,6 +60,11 @@ angular.module('triumpet', [
       controller  : 'EditorCtrl',
       retailerAuth: true
     })    
+    .state('map', {
+      url: '/map/:retailer',
+      template: '<tp-map></tp-map>',
+      controller: 'MapCtrl'
+    })
     .state('main',{
       url         : '',
       template    : "<tp-main></tp-main>",
@@ -76,6 +76,7 @@ angular.module('triumpet', [
 })
 
 .factory('AttachTokens',function($window){
+  //Attach JWT token on every server request
   var attach = {
     request: function(object){
       var jwt = $window.localStorage.getItem('com.triumpet.token');
@@ -90,7 +91,8 @@ angular.module('triumpet', [
 })
 
 .run(function($rootScope, $location, Auth){
-  //TODO: Code to verify token. Uncomment if any route needs to be authenticated.
+  //Code to authenticate a user or retailer when userAuth/retailerAuth is set
+  //to true on stateProvider.
 
   $rootScope.$on('$stateChangeStart', function(evt, next, current) {
     if(next.userAuth && !Auth.isAuth()){

@@ -44,7 +44,7 @@ See [CONTRIBUTING.md](https://github.com/JollyPhantom/Triumpet/blob/master/CONTR
 
 ### Supplemental Documentation
 
-[Server API](https://github.com/JollyPhantom/Triumpet/blob/master/server/API_README.md)
+[Server API](https://github.com/JollyPhantom/Triumpet/blob/master/server/API_README.md)  
 [Triumpet Client](https://github.com/JollyPhantom/Triumpet/blob/master/client/CLIENT_README.MD)
 
 ## Dev Team

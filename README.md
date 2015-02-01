@@ -14,8 +14,6 @@
 
 ###Store Search (for users)###
 >Load the [frontpage](http://triumpet.herokuapp.com/)  
-```username: ```
-```password: ```
 >Search for a store.  
 >Search for an item.
 

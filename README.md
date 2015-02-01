@@ -44,7 +44,7 @@ See [CONTRIBUTING.md](https://github.com/JollyPhantom/Triumpet/blob/master/CONTR
 
 ### Supplemental Documentation
 
-Server API
+Server API  
 Triumpet Client
 
 ## Dev Team

@@ -1,14 +1,3 @@
-// var protractor = require('protractor');
-// var ptor = protractor.getInstance();
-// 
-// browser.get('http://www.angularjs.org');
-// // element(by.model('todoText'))#.sendKeys('write a protractor test');
-// // element(by.css('[value="add"]')).click();
-
-// // var todoList = element.all(by.repeater('todo in todos'));
-// expect(todoList.count()).toEqual(3);
-// expect(todoList.get(2).getText()).toEqual('write a protractor test');
-
 describe('testing /signup', function() {
   var signUpButton = element(by.id('auth-submit'));
   var usersRedirect = element(by.css('a[href$=\'\/signin\'] > div')); 
@@ -26,7 +15,6 @@ describe('testing /signup', function() {
     });
 
     it('should default to no messages from message model :', function(){
-      //pending;
       expect(messages.getAttribute('value')).toBe(null);
     });
 
@@ -58,11 +46,18 @@ describe('testing /signup', function() {
     });
   });
 
-  xdescribe('testing redirects : ', function(){
+  describe('testing redirects : ', function(){
+    it('should redirect to /signin when \'users\' button clicked', function(){
+      usersRedirect.click();
+      expect(browser.getLocationAbsUrl())
+      .toBe('/signin');
+    });
+
+    it('should redirect to /retailers/signin when \'Retailers\' button clicked', function(){
+      retailersRedirect.click();
+      expect(browser.getLocationAbsUrl())
+      .toBe('/retailer/signin');
+    });
 
   });
 });
-
-//default, click on login as : users, click->retailers
-
-//want to count input elements with type: text 

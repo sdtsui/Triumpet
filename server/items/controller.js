@@ -6,16 +6,14 @@ var jwt      = require('jwt-simple');
 
 var controller = {};
 
-//Promisify mongoose methods
+//Mongoose methods, promisified. 
 var findOneRetailer  = Q.nbind(Retailer.findOne, Retailer);
 var createItem       = Q.nbind(Item.create, Item);
 var findItem         = Q.nbind(Item.find, Item);
 var findOneItem      = Q.nbind(Item.findOne, Item);
 
-//CREATE method to create new item
+//CREATE method to create a new item.
 controller.create = function(req,res,next){
-  // console.log('req.params : ', req.params);
-  // console.log('req.body : ' , req.body);
   var username = req.params.retailer;
   findOneRetailer({username:username})
     .then(function(retailer){
@@ -39,7 +37,7 @@ controller.create = function(req,res,next){
     });
 }
 
-//READ method to fetch all items belong to specific retailer
+//READ method to fetch all items belonging to a specific retailer.
 controller.read = function(req,res,next){
   var username = req.params.retailer;
   findOneRetailer({username:username})
@@ -55,7 +53,7 @@ controller.read = function(req,res,next){
     });
 }
 
-//UPDATE method to update one item from one retailer
+//UPDATE method to update one item from one retailer.
 controller.update = function(req,res,next){
   var username = req.params.retailer;
   var itemName = req.params.item;
@@ -80,7 +78,7 @@ controller.update = function(req,res,next){
     });
 }
 
-//DELETE method to remove one item from a retailer
+//DELETE method to remove one item from a retailer.
 controller.delete = function(req,res,next){
   var username = req.params.retailer;
   var itemName = req.params.item;
@@ -101,7 +99,5 @@ controller.delete = function(req,res,next){
       }
     });
 }
-
-
 
 module.exports = controller;

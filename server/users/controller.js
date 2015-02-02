@@ -5,11 +5,11 @@ var jwt      = require('jwt-simple');
 
 var controller = {};
 
-//Promisify mongoose methods
+//Mongoose methods, promisified. 
 var findOne  = Q.nbind(User.findOne, User);
 var create   = Q.nbind(User.create, User);
 
-//CREATE method to create a new user
+//CREATE method to create a new user.
 controller.create = function(req,res,next){
   var username = req.body.username;
 
@@ -22,7 +22,7 @@ controller.create = function(req,res,next){
       }
     })
     .then(function(user){
-      //Return JWT token to client after successful sign-up
+      //Returns JWT to client after a successful sign-up.
       var token = jwt.encode(req.body,'secret');
       res.json({token: token});
     })
@@ -31,7 +31,7 @@ controller.create = function(req,res,next){
     });
 };
 
-//method to sign in a user
+//Signs in a user.
 controller.signin = function(req,res,next){
   var username = req.body.username;
 
@@ -43,7 +43,7 @@ controller.signin = function(req,res,next){
         return user.comparePassword(req.body.password)
           .then(function(verified){
             if(verified){
-               //Return JWT token to client after successful sign-in
+               //Returns JWT to client after a successful sign-in.
               var token = jwt.encode(req.body,'secret');
               res.json({token: token});
             } else {
@@ -57,14 +57,14 @@ controller.signin = function(req,res,next){
     })
 };
 
-//UPDATE method to update attributes for one User
+//UPDATE method to update attributes for one User.
 controller.update = function(req,res,next){
   findOne({username:req.params.username})
     .then(function(user){
       if(!user){
         next(new Error('User does not exist'));
       } else {
-        //Update all attributes from req.body
+        //Update all attributes from req.body.
         for (var attr in req.body){
           user[attr] = req.body[attr];
         }
@@ -77,7 +77,7 @@ controller.update = function(req,res,next){
     });
 };
 
-//DELETE method to remove User
+//DELETE method to remove a user.
 controller.delete = function(req,res,next){
   findOne({username:req.params.username})
     .then(function(user){

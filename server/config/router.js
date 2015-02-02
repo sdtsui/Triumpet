@@ -1,3 +1,6 @@
+//For more information, please see supplemental server documentation at: 
+//https://github.com/JollyPhantom/Triumpet/blob/master/server/API_README.md
+
 var ejs            = require('ejs');
 var bodyParser     = require('body-parser');
 //Custom controllers for routes
@@ -19,9 +22,6 @@ module.exports = function(app, express) {
   app.get('/project',function(req,res){
     res.redirect('/project');
   })
-  /*
-  === Routing API ===
-  */
 
   // Retailers API
   app.post('/api/retailers/signup',retailers.create);
@@ -43,7 +43,4 @@ module.exports = function(app, express) {
   app.put('/api/users/:username',users.update);
   app.delete('/api/users/:username',users.delete);
 
-  //More API...
 };
-
-

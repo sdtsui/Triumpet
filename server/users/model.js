@@ -32,7 +32,7 @@ var UsersSchema = new mongoose.Schema({
   salt        : String
 });
 
-//Method to compare signin password against database
+//Compares input password against database.
 UsersSchema.methods.comparePassword = function(signin){
   //Promisify method
   var defer = Q.defer();
@@ -47,28 +47,27 @@ UsersSchema.methods.comparePassword = function(signin){
   return defer.promise;
 }
 
-//Hash password with before saving
+//Hashing and salting the password.
 UsersSchema.pre('save',function(next){
   var user = this;
 
-  //Only hash password if it has been modified or new
+  //Only hashes password if it is new, or modified.
   if(!user.isModified('password')){
     return next();
   }
 
-  //Generating a salt
+  //Generating a salt.
   bcrypt.genSalt(SALT_WORK_FACTOR, function(err,salt){
     if(err){ //error handling
       return next(err);
     }
 
-    //Hash password with salt
     bcrypt.hash(user.password, salt, null, function(err,hash){
       if(err){
         return next(err);
       }
 
-      //write password to db
+      //Writing to db.
       user.password = hash;
       user.salt = salt;
       next();
@@ -76,5 +75,5 @@ UsersSchema.pre('save',function(next){
   });
 });
 
-//Export user model to controller
+//Export user model to controller.
 module.exports = mongoose.model('users',UsersSchema);

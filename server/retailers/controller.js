@@ -5,11 +5,11 @@ var jwt      = require('jwt-simple');
 
 var controller = {};
 
-//Promisify mongoose methods
+//Mongoose methods, promisified. 
 var findOne  = Q.nbind(Retailer.findOne, Retailer);
 var create   = Q.nbind(Retailer.create, Retailer);
 
-//CREATE method to create a new retailer
+//CREATE method to create a new retailer.
 controller.create = function(req,res,next){
   var username = req.body.username;
 
@@ -22,7 +22,7 @@ controller.create = function(req,res,next){
       }
     })
     .then(function(retailer){
-      //Return JWT token to client after successful sign-up
+      //Returns JWT to client after a successful sign-up.
       var token = jwt.encode(req.body,'secret');
       res.json({token: token});
     })
@@ -31,9 +31,8 @@ controller.create = function(req,res,next){
     });
 };
 
-//signin method for retailer
+//Signs in a retailer.
 controller.signin = function(req,res,next){
-  //method to sign in a retailer
   var username = req.body.username;
   console.log('req.body.username, req.body.password',req.body.username, req.body.password);
   findOne({username:username})
@@ -60,7 +59,7 @@ controller.signin = function(req,res,next){
     })
 };
 
-//READ method to fetch all retailers
+//READ method to fetch all retailers.
 controller.read = function(req,res,next){
   Retailer.find({}).select('-password').exec(function(err,retailers){
     if(err){
@@ -71,7 +70,7 @@ controller.read = function(req,res,next){
   });
 };
 
-//READONE method to fetch one retailer
+//READONE method to fetch a single retailer.
 controller.readOne = function(req,res,next){
   findOne({username:req.params.username})
     .then(function(retailer){
@@ -87,14 +86,14 @@ controller.readOne = function(req,res,next){
     })
 };
 
-//UPDATE method to update attributes for one retailer
+//UPDATE method to update attributes for one retailer.
 controller.update = function(req,res,next){
   findOne({username:req.params.username})
     .then(function(retailer){
       if(!retailer){
         next(new Error('Retailer does not exist'));
       } else {
-        //Update all attributes from req.body
+        //Updates all of a retailer's attributes using data in req.body.
         for (var attr in req.body){
           retailer[attr] = req.body[attr];
         }
@@ -108,7 +107,7 @@ controller.update = function(req,res,next){
     });
 };
 
-//DELETE method to remove retailer
+//DELETE method to remove a retailer.
 controller.delete = function(req,res,next){
   findOne({username:req.params.username})
     .then(function(retailer){

@@ -3,7 +3,7 @@ angular.module('tp.main',[])
 .controller('MainCtrl', function($scope, $stateParams, $http){
 	$scope.data = [];
 
-	//fetch all retailers data
+	//Fetches all retailers, and their data/properties (not just one retailer).
 	$scope.fetchAll = function(){
 		$http({
 			method: 'GET',

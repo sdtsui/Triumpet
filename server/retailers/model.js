@@ -7,7 +7,7 @@ var SALT_WORK_FACTOR  = 10;
 
 /*
 Schema for Retailer.
-Contains login info, general info, and map info.
+Contains login, contact, and map information.
 */
 var RetailersSchema = new mongoose.Schema({
   username: {
@@ -24,13 +24,12 @@ var RetailersSchema = new mongoose.Schema({
   description : String,
   phoneNumber : String,
   address     : String,
-  floorPlan   : [CoordinatesSchema],    //A floorPlan consists of an array of Coordinates
-  shelves     : [ShelvesSchema]         //Selves consists of an array of Shelves
+  floorPlan   : [CoordinatesSchema],    //'floorPlan' consists of an array of Coordinates.
+  shelves     : [ShelvesSchema]         //'selves' consists of an array of Shelves.
 });
 
-//Method to compare signin password against database
+//Compares input password against database.
 RetailersSchema.methods.comparePassword = function(signin){
-  //Promisify method
   var defer = Q.defer();
   var password = this.password;
   console.log('signin, password :', signin, password);
@@ -44,28 +43,27 @@ RetailersSchema.methods.comparePassword = function(signin){
   return defer.promise;
 };
 
-//Hash password with before saving
+//Hashing and salting the password.
 RetailersSchema.pre('save',function(next){
   var retailer = this;
 
-  //Only hash password if it has been modified or new
+  //Only hashes password if it is new, or modified.
   if(!retailer.isModified('password')){
     return next();
   }
 
-  //Generating a salt
+  //Generating a salt.
   bcrypt.genSalt(SALT_WORK_FACTOR, function(err,salt){
     if(err){ //error handling
       return next(err);
     }
 
-    //Hash password with salt
     bcrypt.hash(retailer.password, salt, null,function(err,hash){
-      if(err){ //error handling
+      if(err){
         return next(err);
       }
 
-      //write password to db
+      //Writing to db.
       retailer.password = hash;
       retailer.salt = salt;
       next();
@@ -73,5 +71,5 @@ RetailersSchema.pre('save',function(next){
   });
 });
 
-//Export retailer model to controller
+//Exports retailer model to controller.
 module.exports = mongoose.model('retailers',RetailersSchema);

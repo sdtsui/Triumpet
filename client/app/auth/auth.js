@@ -1,7 +1,7 @@
 angular.module('tp.auth',[])
 
 .controller('AuthCtrl', function($scope, $window, $location, Auth){
-	//Create a retailer, invoke on click
+	//Create a retailer, invoked on a click in retailerSignup.html
 	$scope.createRetailer = function(){
 		var newRetailer = {
 			username  	 : $scope.username,
@@ -11,6 +11,7 @@ angular.module('tp.auth',[])
 			phoneNumber  : $scope.phoneNumber,
 			address			 : $scope.address
 		}
+		//Sends a POST request; returns a token on success. See "factories.js". 
 		Auth.signupRetailer(newRetailer)
 		  .then(function(token){
 		  	//Save token and username to localStorage when sign up is successful
@@ -37,6 +38,7 @@ angular.module('tp.auth',[])
 			lastName  : $scope.lastName,
 			email     : $scope.email
 		}
+		//Sends a POST request. See "factories.js".
 		Auth.signup(newUser)
 		  .then(function(token){
 		  	//Save token and username to localStorage when sign up is successful
@@ -66,12 +68,12 @@ angular.module('tp.auth',[])
 			username: username,
 			password: password
 		};
+		//Sends a POST request. See "factories.js".
 		Auth.signin(login)
 		  .then(function(token){
 		  	//Save token and username to localStorage when sign up is successful
 		  	$window.localStorage.setItem('com.triumpet.token',token);
 		  	$window.localStorage.setItem('com.triumpet.username',login.username);
-		  	//TODO: add location.path to direct to main page
 				$scope.message = 'Success';
 		  	$scope.username = '';
 		  	$scope.password = '';
@@ -90,6 +92,7 @@ angular.module('tp.auth',[])
 			username: username,
 			password: password
 		};
+		//Sends a POST request. See "factories.js".
 		Auth.signinRetailer(login)
 		  .then(function(token){
 		  	//Save token and username to localStorage when sign up is successful

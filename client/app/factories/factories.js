@@ -1,5 +1,6 @@
 angular.module('tp.factories',[])
-
+//Please see Client Docuentation for more information: 
+//https://github.com/JollyPhantom/Triumpet/blob/master/client/CLIENT_README.MD
 .factory('Map', function($http){
 	var map = {};
 
@@ -12,7 +13,8 @@ angular.module('tp.factories',[])
 		});
 	};
 
-	//Fetch one retailer from database and return as a promise
+	//Fetch one retailer from database and return as a promise.
+  //Used to get specific retailer information in Retailer Map Editor and User Map.
   map.fetch = function(username){
     return $http({
       method: 'GET',
@@ -23,7 +25,7 @@ angular.module('tp.factories',[])
     });
   };
 
-  // converts floor plan to strings to be used with d3
+  //Converts floor plan to strings to be used with d3.
   map.getFloorPlanString = function(floorPlan, scale){
     var coors = floorPlan;
     var result = '';
@@ -35,7 +37,7 @@ angular.module('tp.factories',[])
     return result;
   };
 
-  // draw floor plan on svg specified as one of the inputs
+  //Draw floor plan on svg specified as one of the inputs.
   map.drawFloorPlan = function(floorPlan, scale, svg){
   	svg.selectAll('polygon').remove();
     var fp = svg.selectAll('polygon').data([0]);
@@ -45,7 +47,7 @@ angular.module('tp.factories',[])
       .attr('stroke','blue');
   };
 
-  // draw shelves on svg specified as one of the inputs
+  //Draw shelves on svg specified as one of the inputs.
   map.drawShelves = function(shelves, scale, svg){
   	svg.selectAll('rect').remove();
     var sh = svg.selectAll('rect').data(shelves);
@@ -64,7 +66,7 @@ angular.module('tp.factories',[])
 .factory('Item',function($http){
 	var item = {};
 
-	//Update item on retailers
+	//Updates items on retailers.
 	item.update = function(username,data){
 		data.forEach(function(item){
 			$http({
@@ -82,7 +84,7 @@ angular.module('tp.factories',[])
 		});
 	};
 
-	//Fetch all items from a retailer
+	//Fetches all items from a retailer.
 	item.fetchItems = function(username){
 		return $http({
       method: 'GET',
@@ -93,7 +95,9 @@ angular.module('tp.factories',[])
     });
 	};
 
-	//turn items into an array of coordinates
+	//Strips out information unrelated to rendering.
+  //Input: items
+  //Output: coordinates to render. See drawItems function on line 117.
 	item.flattenItemsCoor = function(items){
 		var result = [];
 		items.forEach(function(item){
@@ -109,7 +113,7 @@ angular.module('tp.factories',[])
 		return result;
 	}
 
-	// draw items on svg specified as one of the inputs
+	// Draws items on svg specified as one of the inputs.
   item.drawItems = function(items, scale, svg, clear){
     clear = (clear === undefined) ? true : false;
     if ( clear ) {
@@ -187,7 +191,6 @@ angular.module('tp.factories',[])
 		$window.localStorage.removeItem('com.triumpet.username');
 		$window.localStorage.removeItem('retailer.triumpet.token');
 		$window.localStorage.removeItem('retailer.triumpet.username');
-		//TODO: enter a redirect route
 	};
 
 	return auth;

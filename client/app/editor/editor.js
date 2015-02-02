@@ -1,9 +1,9 @@
 angular.module('tp.editor',[])
 
-//Controller for retailer map editor.
+//Controller for retailer map editor. Mostly calls corresponding functions in Map and Item factories.
 .controller('EditorCtrl', function($scope, $stateParams, $http, Map, Item, Auth){
   angular.extend($scope,Map,Item);
-  $scope.data = {};
+  $scope.data = {};//placeholder object, empty until Map.fetch is called.
   $scope.items = [];
   $scope.scale = 15;
 
@@ -30,6 +30,7 @@ angular.module('tp.editor',[])
   }
   
   if($stateParams.retailer){ 
+    //Fetches all data for a single retailer, replacing $scope.data with the retailer's data (floorPlan, items, etc).
     Map.fetch($stateParams.retailer)
       .then(function(data){
         $scope.data = data;
@@ -85,7 +86,7 @@ angular.module('tp.editor',[])
 })
 
 //Shelves
-//Scales click location to internal coordinate system, inserts a new shelf, and renders it.
+//Inserts a new shelf, and renders it.
 .directive('tpShelves',function($window, Map){
   return {
     restrict: 'EA',
@@ -111,7 +112,7 @@ angular.module('tp.editor',[])
 })
 
 //Items
-//Scales click location to internal coordinate system, inserts a new item, and renders it.
+//Inserts a new item, and renders it.
 .directive('tpItems',function($window, Item){
   return {
     restrict: 'EA',

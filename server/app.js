@@ -3,8 +3,8 @@ var mongoose       = require('mongoose');
 
 var app = express();
 
-//Declare Database path and default to localhost
-//Remember to set process.env.dbPath on your deployment environment
+//Declares Database path and sets default to localhost.
+//Please remember to set process.env.dbPath on your deployment environment
 var dbPath         = process.env.dbPath || 'mongodb://localhost/triumpet';
 
 //connect to mongo

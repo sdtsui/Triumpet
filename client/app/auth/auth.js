@@ -1,7 +1,7 @@
 angular.module('tp.auth',[])
 
 .controller('AuthCtrl', function($scope, $window, $location, Auth){
-	//Creates a retailer. Called on click from retailerSignup.html
+	//Creates a retailer. Called on click from retailerSignup.html.
 	$scope.createRetailer = function(){
 		var newRetailer = {
 			username  	 : $scope.username,
@@ -41,7 +41,7 @@ angular.module('tp.auth',[])
 		//Sends a POST request. See "factories.js".
 		Auth.signup(newUser)
 		  .then(function(token){
-		  	//Saves a token and username to localStorage when sign-up is successful
+		  	//Saves a token and username to localStorage when sign-up is successful.
 		  	$window.localStorage.setItem('com.triumpet.token',token);
 		  	$window.localStorage.setItem('com.triumpet.username',newUser.username);
 		  	//TODO: add location.path to direct to main page

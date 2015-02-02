@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/jollyphantom/triumpet.png?label=ready&title=Ready)](https://waffle.io/jollyphantom/triumpet)
 
 # <img src='./client/assets/Triumpet-logo.png'></img>
 <a href='http://triumpet.herokuapp.com/project'>Visit Project Page</a>

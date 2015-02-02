@@ -71,7 +71,7 @@ angular.module('tp.auth',[])
 		//Sends a POST request. See "factories.js".
 		Auth.signin(login)
 		  .then(function(token){
-		  	//Saves a token and username to localStorage when sign-up is successful
+		  	//Saves a token and username to localStorage when sign-up is successful.
 		  	$window.localStorage.setItem('com.triumpet.token',token);
 		  	$window.localStorage.setItem('com.triumpet.username',login.username);
 				$scope.message = 'Success';

@@ -12,7 +12,7 @@ angular.module('triumpet', [
   'ui.router'
 ])
 
-// configures routes for the app
+// Configures routes for the app.
 .config(function($stateProvider, $httpProvider){
   $stateProvider
     .state('auth',{
@@ -76,7 +76,7 @@ angular.module('triumpet', [
 })
 
 .factory('AttachTokens',function($window){
-  //Attach JWT token on every server request
+  //Attaches a JWT on every server request.
   var attach = {
     request: function(object){
       var jwt = $window.localStorage.getItem('com.triumpet.token');
@@ -91,8 +91,8 @@ angular.module('triumpet', [
 })
 
 .run(function($rootScope, $location, Auth){
-  //Code to authenticate a user or retailer when userAuth/retailerAuth is set
-  //to true on stateProvider.
+  //Authenticates a user or retailer when userAuth/retailerAuth is true.
+  //Set in stateProvider.
 
   $rootScope.$on('$stateChangeStart', function(evt, next, current) {
     if(next.userAuth && !Auth.isAuth()){

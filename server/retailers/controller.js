@@ -5,11 +5,11 @@ var jwt      = require('jwt-simple');
 
 var controller = {};
 
-//Promisify mongoose methods
+//Mongoose methods, promisified. 
 var findOne  = Q.nbind(Retailer.findOne, Retailer);
 var create   = Q.nbind(Retailer.create, Retailer);
 
-//CREATE method to create a new retailer
+//CREATE method to create a new retailer.
 controller.create = function(req,res,next){
   var username = req.body.username;
 

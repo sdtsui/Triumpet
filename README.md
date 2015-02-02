@@ -15,16 +15,13 @@
 ```password: abcstore1```  
 >Click to outline your map's verticies, place shelves, and place items.
 >When done, click "update".  
->If you make a mistake, prevent saving by clicking on the next tab (eg, "Shelves"), and returning to "Floor Plan".
-
-![alt text](http://i.gyazo.com/88f0cf1590c828d3aad41f7fd88b15c5.gif "Logo Title Text 1")
-
+>If you make a mistake, prevent saving by clicking on the next tab (eg, "Shelves"), and returning to "Floor Plan".  
+![alt text](http://i.gyazo.com/bc22b16d8b61878b49e10727c9fda362.gif "Retailer Map Edit Example")
 ###Store Search (for users)###
 >Load the [frontpage](http://triumpet.herokuapp.com/).  
 >Search for a store.  
->Search for an item.
-
-![alt text](http://i.gyazo.com/b3344438d0e0ef7bc9f70d2ffd8c7a2d.gif "Logo Title Text 2")
+>Search for an item.  
+![alt text](http://i.gyazo.com/24baf491e61dc381f281212a1effe279.gif "Map View Example")
 
 ## Development
 

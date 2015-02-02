@@ -1,3 +1,6 @@
+//For more information, please see supplemental server documentation at: 
+//https://github.com/JollyPhantom/Triumpet/blob/master/server/API_README.md
+
 var ejs            = require('ejs');
 var bodyParser     = require('body-parser');
 //Custom controllers for routes

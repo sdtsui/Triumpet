@@ -47,7 +47,7 @@ RetailersSchema.methods.comparePassword = function(signin){
 RetailersSchema.pre('save',function(next){
   var retailer = this;
 
-  //Only hashes the password if it has been modified or new.
+  //Only hashes password if it is new, or modified.
   if(!retailer.isModified('password')){
     return next();
   }

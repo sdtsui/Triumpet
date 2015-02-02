@@ -84,7 +84,7 @@ angular.module('tp.auth',[])
 		  })
 	};
 
-		//Login Retailer
+	//Login Retailer
 	$scope.loginRetailer = function(username, password){
 		var login = {
 			username: username,

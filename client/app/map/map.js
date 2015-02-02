@@ -45,15 +45,15 @@ angular.module('tp.map',[])
  
     // Defines the drag behavior.
     var drag = d3.behavior.drag()
-      .on("drag", dragmove);
+      .on("drag", dragMove);
 
-    // Used in dragmove, below.
+    // Used in dragMove, below.
     function updateUserLoc(userLoc){
       scope.userLoc = userLoc;
     };
 
     // Callback to be invoked on the 'drag' event.
-    function dragmove(d) {
+    function dragMove(d) {
       var x = d3.event.x;
       var y = d3.event.y;
       d3.select(this).attr('cx',x).attr('cy', y);

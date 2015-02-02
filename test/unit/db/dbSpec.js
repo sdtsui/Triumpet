@@ -61,13 +61,13 @@ describe('ajax: CRUD tests', function(){
           done(err);
         });
 
-      //2nd insert should fail, catch error and pass.
+      //2nd insert should fail, catch error and pass. Ie, this test expects an error because it is inserting a duplicate user.
       q_create(newUser)
         .then(function(){
           done(new Error('Error : db should already have a duplicate of this user..'));
         })
         .catch(function(err){
-          done();//pass
+          done();//pass here
         });
 
     });
@@ -176,10 +176,8 @@ describe('ajax: CRUD tests', function(){
 
   }); // R
 
-  describe('U: Update operations', function(){
-    //scaffold for testing profile updating.
-    //MVP does not have this functionality.
-    //Open Issue.
+  xdescribe('U: Update operations', function(){
+    //Project does not have update functionality, so these tests are pending. 
     before(function(){
       var newUser = {
         "email"     : "Phillip@triumpet.com",
@@ -264,7 +262,7 @@ describe('ajax: CRUD tests', function(){
     });
 
     it('does not allow deletion of nonexistent users, or unintentional deletion', function(){
-      //find the current number of users:
+      //Finds the current number of users, to reference orignal users.
       var numUsers = 0;
       q_find({})
         .then(function(users){
@@ -284,7 +282,7 @@ describe('ajax: CRUD tests', function(){
           done(err);
         })
 
-      //expect nothing else to have been deleted
+      //Expects nothing else to have been deleted.
       q_find({})
         .then(function(users){
           expect(users.length).to.equal(numUsers);

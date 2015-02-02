@@ -44,13 +44,14 @@ var sampleItems   = {
 
 describe('item AJAX testing : ', function(){
   before(function(done){
-    //cleanup
+    //Cleaning up from previous tests.
+    //Alternatively, just clear the database with "db.items.remove()" in mongo.
     item.del('phil1', sampleItems.philThing1.name, function(e, res){
     });
     item.del('phil1', 'philAPE', function(e, res){
     });
 
-    //make sure a retailer is present, to insert into
+    //Makes sure a retailer is present, to insert things into.
     var phil = {
       username: 'phil1',
       password: 'phil1',
@@ -58,7 +59,6 @@ describe('item AJAX testing : ', function(){
       description: 'phil1'
     };
 
-    //create phil
     superagent.post(retailer.paths.signup)
       .send(phil)
       .end(function(err, res){
@@ -117,8 +117,6 @@ describe('item AJAX testing : ', function(){
     //Deprecated. This test uses an old way of updating items. App works in user tests.
     //Please see open issue here:
     //https://github.com/JollyPhantom/Triumpet/issues/106
-    //
-    //
     it('should allow updating of an item\'s details', function(done){
       var newParams = {
         name: 'philAPE',
@@ -127,7 +125,7 @@ describe('item AJAX testing : ', function(){
       item.update('phil1', 'philStuff', newParams, function(e, res){
         expect(res.statusCode).to.equal(300);
 
-        //Reads all of phil1's items, makes sure the new one exists.
+        //Reads all of Phil1's items, makes sure the new one exists.
         item.read('phil1', function(e, res){
           var matched = false;
           expect(res.body.length).to.equal(2);
@@ -171,4 +169,3 @@ describe('item AJAX testing : ', function(){
   });
 
 });
-

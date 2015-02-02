@@ -55,6 +55,8 @@ controller.read = function(req,res,next){
 
 //UPDATE method to update one item from one retailer.
 controller.update = function(req,res,next){
+  console.log('req.body : ', req.body);
+  console.log('req.params :', req.params);
   var username = req.params.retailer;
   var itemName = req.params.item;
   findOneRetailer({username:username})

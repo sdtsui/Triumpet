@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for server/config/router.js</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../../prettify.css">
+
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">server/config/router.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">0% <small>(0 / 27)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 2)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">0% <small>(0 / 27)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">server/config/</a> &#187; router.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">//For more information, please see supplemental server documentation at: 
+//https://github.com/JollyPhantom/Triumpet/blob/master/server/API_README.md
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var ejs            = require('ejs');</span>
+<span class="cstat-no" title="statement not covered" >var bodyParser     = require('body-parser');</span>
+//Custom controllers for routes
+<span class="cstat-no" title="statement not covered" >var retailers      = require('../retailers/controller.js');</span>
+<span class="cstat-no" title="statement not covered" >var items          = require('../items/controller.js');</span>
+<span class="cstat-no" title="statement not covered" >var users          = require('../users/controller.js');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >module.exports = <span class="fstat-no" title="function not covered" >function(app, express) {</span></span>
+  //Mounting middleware to app
+<span class="cstat-no" title="statement not covered" >  app.use(bodyParser.urlencoded({extended: true}));</span>
+<span class="cstat-no" title="statement not covered" >  app.use(bodyParser.json());</span>
+<span class="cstat-no" title="statement not covered" >  app.engine('html',ejs.renderFile);</span>
+<span class="cstat-no" title="statement not covered" >  app.set('view engine', 'html');</span>
+&nbsp;
+  //Serve static assets
+<span class="cstat-no" title="statement not covered" >  app.use(express.static(__dirname + '/../../client'));</span>
+&nbsp;
+  //Route to project landing page
+<span class="cstat-no" title="statement not covered" >  app.get('/project',<span class="fstat-no" title="function not covered" >function(req,res){</span></span>
+<span class="cstat-no" title="statement not covered" >    res.redirect('/project');</span>
+  })
+&nbsp;
+  // Retailers API
+<span class="cstat-no" title="statement not covered" >  app.post('/api/retailers/signup',retailers.create);</span>
+<span class="cstat-no" title="statement not covered" >  app.post('/api/retailers/signin',retailers.signin);</span>
+<span class="cstat-no" title="statement not covered" >  app.get('/api/retailers',retailers.read);</span>
+<span class="cstat-no" title="statement not covered" >  app.get('/api/retailers/:username',retailers.readOne);</span>
+<span class="cstat-no" title="statement not covered" >  app.put('/api/retailers/:username',retailers.update);</span>
+<span class="cstat-no" title="statement not covered" >  app.delete('/api/retailers/:username',retailers.delete);</span>
+&nbsp;
+  // Items API
+<span class="cstat-no" title="statement not covered" >  app.post('/api/items/:retailer', items.create);</span>
+<span class="cstat-no" title="statement not covered" >  app.get('/api/items/:retailer', items.read);</span>
+<span class="cstat-no" title="statement not covered" >  app.put('/api/items/:retailer/:item', items.update);</span>
+<span class="cstat-no" title="statement not covered" >  app.delete('/api/items/:retailer/:item',items.delete);</span>
+&nbsp;
+  // Users API
+<span class="cstat-no" title="statement not covered" >  app.post('/api/users/signup',users.create);</span>
+<span class="cstat-no" title="statement not covered" >  app.post('/api/users/signin',users.signin);</span>
+<span class="cstat-no" title="statement not covered" >  app.put('/api/users/:username',users.update);</span>
+<span class="cstat-no" title="statement not covered" >  app.delete('/api/users/:username',users.delete);</span>
+&nbsp;
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Mar 23 2015 15:25:33 GMT-0700 (PDT)</div>
+</div>
+
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+
+<script src="../../sorter.js"></script>
+</body>
+</html>

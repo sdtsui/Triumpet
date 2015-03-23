@@ -45,7 +45,7 @@ UsersSchema.methods.comparePassword = function(signin){
     }
   });
   return defer.promise;
-}
+};
 
 //Hashing and salting the password.
 UsersSchema.pre('save',function(next){
